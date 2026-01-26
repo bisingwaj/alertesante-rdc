@@ -1,11 +1,12 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mic, Square, X } from 'lucide-react';
+import { Mic, Square, X, Play, RotateCcw, Check } from 'lucide-react';
 
 export const AudioRecorder = ({ onRecordingComplete, onCancel }) => {
-    const [isRecording, setIsRecording] = useState(false);
+    const [status, setStatus] = useState('idle'); // idle, recording, reviewing
     const [duration, setDuration] = useState(0);
+    const [audioBlob, setAudioBlob] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
     const canvasRef = useRef(null);
     const mediaRecorderRef = useRef(null);
     const audioContextRef = useRef(null);
@@ -13,22 +14,35 @@ export const AudioRecorder = ({ onRecordingComplete, onCancel }) => {
     const sourceRef = useRef(null);
     const animationRef = useRef(null);
     const chunksRef = useRef([]);
+    const audioRef = useRef(new Audio());
 
     useEffect(() => {
         startRecording();
-        return () => stopResources();
+        return () => {
+            stopResources();
+            if (previewUrl) URL.revokeObjectURL(previewUrl);
+        };
     }, []);
 
     useEffect(() => {
         let interval;
-        if (isRecording) {
+        if (status === 'recording') {
             interval = setInterval(() => setDuration(d => d + 1), 1000);
         }
         return () => clearInterval(interval);
-    }, [isRecording]);
+    }, [status]);
 
     const startRecording = async () => {
         try {
+            // Clean up previous preview URL if any
+            if (previewUrl) {
+                URL.revokeObjectURL(previewUrl);
+                setPreviewUrl(null);
+            }
+            setAudioBlob(null);
+            setDuration(0);
+            stopResources(); // Ensure previous resources are stopped before starting new ones
+
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
             // 1. Setup Audio Context for Visualizer
@@ -51,11 +65,15 @@ export const AudioRecorder = ({ onRecordingComplete, onCancel }) => {
             mediaRecorder.ondataavailable = (e) => chunksRef.current.push(e.data);
             mediaRecorder.onstop = () => {
                 const blob = new Blob(chunksRef.current, { type: 'audio/webm' });
-                onRecordingComplete(blob);
+                setAudioBlob(blob);
+                const url = URL.createObjectURL(blob);
+                setPreviewUrl(url);
+                setStatus('reviewing');
+                stopResources(); // Stop visualizer
             };
 
             mediaRecorder.start();
-            setIsRecording(true);
+            setStatus('recording');
 
             // 3. Start Visualization Loop
             draw();
@@ -80,9 +98,9 @@ export const AudioRecorder = ({ onRecordingComplete, onCancel }) => {
         const bufferLength = analyser.frequencyBinCount;
         const dataArray = new Uint8Array(bufferLength);
 
-        const drawArgs = { canvas, ctx, analyser, dataArray };
-
         const render = () => {
+            if (status !== 'recording') return; // Stop drawing if not recording
+
             analyser.getByteFrequencyData(dataArray);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -117,21 +135,46 @@ export const AudioRecorder = ({ onRecordingComplete, onCancel }) => {
 
     const stopResources = () => {
         if (animationRef.current) cancelAnimationFrame(animationRef.current);
-        // Vérifier si le contexte existe et n'est pas déjà fermé
         if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
             audioContextRef.current.close().catch(e => console.warn('AudioContext already closed', e));
+            audioContextRef.current = null;
         }
-        if (mediaRecorderRef.current) {
+        if (mediaRecorderRef.current && mediaRecorderRef.current.stream) {
             mediaRecorderRef.current.stream.getTracks().forEach(t => t.stop());
+        }
+        if (sourceRef.current) {
+            sourceRef.current.disconnect();
+            sourceRef.current = null;
+        }
+        if (analyserRef.current) {
+            analyserRef.current = null;
         }
     };
 
     const handleStop = () => {
-        if (mediaRecorderRef.current && isRecording) {
+        if (mediaRecorderRef.current && status === 'recording') {
             mediaRecorderRef.current.stop();
-            setIsRecording(false);
-            stopResources();
+            // The mediaRecorder.onstop handler will set status to 'reviewing'
         }
+    };
+
+    const handleRetry = () => {
+        if (previewUrl) URL.revokeObjectURL(previewUrl);
+        setAudioBlob(null);
+        setPreviewUrl(null);
+        setDuration(0);
+        startRecording();
+    };
+
+    const handlePlayPreview = () => {
+        if (previewUrl) {
+            audioRef.current.src = previewUrl;
+            audioRef.current.play();
+        }
+    };
+
+    const handleConfirm = () => {
+        if (audioBlob) onRecordingComplete(audioBlob);
     };
 
     const formatTime = (sec) => {
@@ -145,29 +188,56 @@ export const AudioRecorder = ({ onRecordingComplete, onCancel }) => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            className="fixed inset-0 z-[60] bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center"
+            className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center"
         >
             <button onClick={onCancel} className="absolute top-6 right-6 text-white/50 hover:text-white">
                 <X size={32} />
             </button>
 
-            <div className="relative w-full h-1/2 flex items-center justify-center">
-                <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
-                <Mic size={48} className="relative z-10 text-black" />
-            </div>
+            {status === 'recording' ? (
+                <>
+                    <div className="relative w-full h-1/2 flex items-center justify-center">
+                        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+                        <Mic size={48} className="relative z-10 text-black p-2 bg-neon-green rounded-full shadow-[0_0_30px_#34C759]" />
+                    </div>
+                    <div className="mt-8 text-center space-y-2">
+                        <h3 className="text-2xl font-bold text-white">Enregistrement...</h3>
+                        <p className="font-mono text-neon-green text-xl tracking-widest">{formatTime(duration)}</p>
+                    </div>
+                    <button
+                        onClick={handleStop}
+                        className="mt-12 w-20 h-20 bg-red-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform shadow-[0_0_40px_rgba(239,68,68,0.4)]"
+                    >
+                        <Square size={32} className="text-white fill-current" />
+                    </button>
+                </>
+            ) : (
+                <>
+                    <div className="flex flex-col items-center gap-8 animate-fade-in text-center">
+                        <h3 className="text-2xl font-bold text-white">Aperçu Audio</h3>
 
-            <div className="mt-8 text-center space-y-2">
-                <h3 className="text-2xl font-bold text-white">Enregistrement...</h3>
-                <p className="font-mono text-neon-green text-xl tracking-widest">{formatTime(duration)}</p>
-                <p className="text-white/40 text-sm">Parlez distinctement près du micro</p>
-            </div>
+                        <button onClick={handlePlayPreview} className="w-24 h-24 bg-dark-800 rounded-full border border-neon-yellow flex items-center justify-center hover:bg-neon-yellow/10 transition-colors">
+                            <Play size={40} className="text-neon-yellow ml-2" />
+                        </button>
 
-            <button
-                onClick={handleStop}
-                className="mt-12 w-20 h-20 bg-red-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform shadow-[0_0_40px_rgba(239,68,68,0.4)]"
-            >
-                <Square size={32} className="text-white fill-current" />
-            </button>
+                        <div className="flex gap-6 mt-8">
+                            <button onClick={handleRetry} className="flex flex-col items-center gap-2 text-white/50 hover:text-white">
+                                <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center">
+                                    <RotateCcw size={24} />
+                                </div>
+                                <span className="text-sm">Recommencer</span>
+                            </button>
+
+                            <button onClick={handleConfirm} className="flex flex-col items-center gap-2 text-neon-green hover:scale-105 transition-transform">
+                                <div className="w-16 h-16 rounded-full bg-neon-green text-black flex items-center justify-center shadow-[0_0_20px_rgba(52,199,89,0.4)]">
+                                    <Check size={32} strokeWidth={3} />
+                                </div>
+                                <span className="text-sm font-bold">Valider</span>
+                            </button>
+                        </div>
+                    </div>
+                </>
+            )}
         </motion.div>
     );
 };
