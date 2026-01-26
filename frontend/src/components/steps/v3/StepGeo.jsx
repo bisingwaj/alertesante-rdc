@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
 import { GeoSelector } from '../../ui/GeoSelector';
-import { MapPin, Loader2, CheckCircle2 } from 'lucide-react';
+import { MapPin, Loader2, CheckCircle2, ArrowLeft } from 'lucide-react';
 
-export const StepGeo = ({ onNext }) => {
+export const StepGeo = ({ onNext, onBack }) => {
     const [locating, setLocating] = useState(false);
     const [gpsData, setGpsData] = useState(null);
 
@@ -37,7 +37,10 @@ export const StepGeo = ({ onNext }) => {
     };
 
     return (
-        <div className="flex flex-col h-full pt-12 px-6">
+        <div className="flex flex-col h-full pt-8 px-6">
+            <button onClick={onBack} className="mb-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+                <ArrowLeft size={24} className="text-white" />
+            </button>
             <h2 className="text-2xl font-bold mb-2">Où cela se passe-t-il ?</h2>
             <p className="text-white/60 mb-6">Précisez le lieu de l'incident.</p>
 
@@ -46,8 +49,8 @@ export const StepGeo = ({ onNext }) => {
                 onClick={handleLocate}
                 disabled={locating || gpsData}
                 className={`w-full py-4 mb-6 rounded-2xl flex items-center justify-center gap-3 transition-colors border ${gpsData
-                        ? 'bg-neon-green/20 border-neon-green text-neon-green'
-                        : 'bg-neon-yellow/10 border-neon-yellow text-neon-yellow hover:bg-neon-yellow/20'
+                    ? 'bg-neon-green/20 border-neon-green text-neon-green'
+                    : 'bg-neon-yellow/10 border-neon-yellow text-neon-yellow hover:bg-neon-yellow/20'
                     }`}
             >
                 {locating ? <Loader2 className="animate-spin" /> : gpsData ? <CheckCircle2 /> : <MapPin />}

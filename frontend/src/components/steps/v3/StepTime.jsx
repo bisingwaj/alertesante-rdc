@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { ArrowLeft } from 'lucide-react';
 
 const TIMES = [
     { id: 'TODAY', label: "Aujourd'hui" },
@@ -11,13 +12,16 @@ const IMPACTS = [
     { id: 'MANY', label: "Plusieurs personnes" }
 ];
 
-export const StepTime = ({ onNext }) => {
+export const StepTime = ({ onNext, onBack }) => {
     const [time, setTime] = useState(null);
     const [impact, setImpact] = useState(null);
     const canContinue = time && impact;
 
     return (
-        <div className="flex flex-col h-full pt-12 px-6">
+        <div className="flex flex-col h-full pt-8 px-6">
+            <button onClick={onBack} className="mb-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+                <ArrowLeft size={24} className="text-white" />
+            </button>
             <h2 className="text-2xl font-bold mb-6">Contexte</h2>
             <p className="text-neon-yellow text-xs font-bold uppercase tracking-widest mb-3">Depuis quand ?</p>
             <div className="grid grid-cols-3 gap-2 mb-8">

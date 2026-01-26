@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ArrowLeft } from 'lucide-react';
 
 const CATEGORIES = {
     'PLAINTE': [
@@ -25,13 +26,16 @@ const CATEGORIES = {
     ]
 };
 
-export const StepCategory = ({ onNext }) => {
+export const StepCategory = ({ onNext, onBack }) => {
     // Simulé (Normalement on lit props.type du contexte)
     // Pour la démo on affiche tout ou défaut
     const list = CATEGORIES['PLAINTE'];
 
     return (
-        <div className="flex flex-col h-full pt-12 px-6">
+        <div className="flex flex-col h-full pt-8 px-6">
+            <button onClick={onBack} className="mb-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+                <ArrowLeft size={24} className="text-white" />
+            </button>
             <h2 className="text-2xl font-bold mb-2">Précisez le problème</h2>
             <p className="text-white/60 mb-8">Sélectionnez ce qui correspond le mieux.</p>
 
@@ -44,8 +48,8 @@ export const StepCategory = ({ onNext }) => {
                         transition={{ delay: i * 0.05 }}
                         onClick={() => onNext({ category: c })}
                         className={`p-5 rounded-2xl text-left font-bold text-lg border transition-all ${c.sensitive
-                                ? 'bg-red-900/20 border-red-500/30 text-red-200 hover:bg-red-900/40'
-                                : 'bg-dark-800 border-white/5 text-white hover:border-neon-yellow/50'
+                            ? 'bg-red-900/20 border-red-500/30 text-red-200 hover:bg-red-900/40'
+                            : 'bg-dark-800 border-white/5 text-white hover:border-neon-yellow/50'
                             }`}
                     >
                         {c.label}

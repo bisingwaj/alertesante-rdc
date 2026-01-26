@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Camera, Mic, Loader2, CheckCircle2, Paperclip } from 'lucide-react';
+import { Camera, Mic, Loader2, CheckCircle2, Paperclip, ArrowLeft } from 'lucide-react';
 import { supabase } from '../../../supabaseClient';
 import { AudioRecorder } from '../../ui/AudioRecorder';
 import { MiniAudioPlayer } from '../../ui/MiniAudioPlayer';
 
-export const StepDetails = ({ onNext }) => {
+export const StepDetails = ({ onNext, onBack }) => {
     const [desc, setDesc] = useState('');
     const [uploading, setUploading] = useState(false);
 
@@ -64,7 +64,10 @@ export const StepDetails = ({ onNext }) => {
                 />
             )}
 
-            <div className="flex flex-col h-full pt-12 px-6">
+            <div className="flex flex-col h-full pt-8 px-6">
+                <button onClick={onBack} className="mb-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+                    <ArrowLeft size={24} className="text-white" />
+                </button>
                 <h2 className="text-2xl font-bold mb-2">Détails et Preuves</h2>
                 <p className="text-white/60 mb-6">Description, photo ou note vocale.</p>
 

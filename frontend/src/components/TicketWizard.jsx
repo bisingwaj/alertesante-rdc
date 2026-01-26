@@ -34,15 +34,15 @@ const TicketWizard = () => {
         'HOME': <StepHome onStart={() => setCurrentScreen('TYPE')} onUrgent={() => setCurrentScreen('URGENT')} />,
         'URGENT': <StepUrgent onBack={() => setCurrentScreen('HOME')} />,
 
-        // FLOW
-        'TYPE': <StepType onNext={(d) => goNext(d, 'GEO')} />,
-        'GEO': <StepGeo onNext={(d) => goNext(d, 'STRUCTURE')} />,
-        'STRUCTURE': <StepStructure onNext={(d) => goNext(d, 'CATEGORY')} />,
-        'CATEGORY': <StepCategory onNext={(d) => goNext(d, 'DETAILS')} />,
-        'DETAILS': <StepDetails onNext={(d) => goNext(d, 'TIME')} />,
-        'TIME': <StepTime onNext={(d) => goNext(d, 'GRAVITY')} />,
-        'GRAVITY': <StepGravity onNext={(d) => goNext(d, 'CONTACT')} />,
-        'CONTACT': <StepContact onNext={(d) => goNext(d, 'RECAP')} />,
+        // FLOW (Avec Navigation BIDIRECTIONNELLE)
+        'TYPE': <StepType onNext={(d) => goNext(d, 'GEO')} onBack={() => goBack('HOME')} />,
+        'GEO': <StepGeo onNext={(d) => goNext(d, 'STRUCTURE')} onBack={() => goBack('TYPE')} />,
+        'STRUCTURE': <StepStructure onNext={(d) => goNext(d, 'CATEGORY')} onBack={() => goBack('GEO')} />,
+        'CATEGORY': <StepCategory onNext={(d) => goNext(d, 'DETAILS')} onBack={() => goBack('STRUCTURE')} />,
+        'DETAILS': <StepDetails onNext={(d) => goNext(d, 'TIME')} onBack={() => goBack('CATEGORY')} />,
+        'TIME': <StepTime onNext={(d) => goNext(d, 'GRAVITY')} onBack={() => goBack('DETAILS')} />,
+        'GRAVITY': <StepGravity onNext={(d) => goNext(d, 'CONTACT')} onBack={() => goBack('TIME')} />,
+        'CONTACT': <StepContact onNext={(d) => goNext(d, 'RECAP')} onBack={() => goBack('GRAVITY')} />,
 
         // END
         'RECAP': <StepRecap data={data} onNext={() => setCurrentScreen('SUCCESS')} onBack={() => setCurrentScreen('CONTACT')} />,

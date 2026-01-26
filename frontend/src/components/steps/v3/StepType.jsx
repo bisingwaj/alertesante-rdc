@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HandCoins, Pill, Siren } from 'lucide-react';
+import { HandCoins, Pill, Siren, ArrowLeft } from 'lucide-react';
 
 const types = [
     { id: 'PLAINTE', icon: <HandCoins size={32} className="text-neon-red" />, label: 'Plainte / Abus', desc: 'Corruption, mauvais accueil...' },
@@ -8,8 +8,11 @@ const types = [
     { id: 'ALERTE', icon: <Siren size={32} className="text-orange-500" />, label: 'Alerte Sanitaire', desc: 'Maladie inconnue, décès...' },
 ];
 
-export const StepType = ({ onNext }) => (
-    <div className="flex flex-col h-full pt-12 px-6">
+export const StepType = ({ onNext, onBack }) => (
+    <div className="flex flex-col h-full pt-8 px-6">
+        <button onClick={onBack} className="mb-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+            <ArrowLeft size={24} className="text-white" />
+        </button>
         <h2 className="text-2xl font-bold mb-2">Quel est le problème ?</h2>
         <p className="text-white/60 mb-8">Choisissez une catégorie principale.</p>
 

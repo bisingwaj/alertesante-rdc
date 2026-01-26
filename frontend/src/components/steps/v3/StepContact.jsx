@@ -1,13 +1,16 @@
 
 import React, { useState } from 'react';
-import { Shield, Phone } from 'lucide-react';
+import { Shield, Phone, ArrowLeft } from 'lucide-react';
 
-export const StepContact = ({ onNext }) => {
+export const StepContact = ({ onNext, onBack }) => {
     const [anonymous, setAnonymous] = useState(true);
     const [phone, setPhone] = useState('');
 
     return (
-        <div className="flex flex-col h-full pt-12 px-6">
+        <div className="flex flex-col h-full pt-8 px-6">
+            <button onClick={onBack} className="mb-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+                <ArrowLeft size={24} className="text-white" />
+            </button>
             <h2 className="text-2xl font-bold mb-2">Contact</h2>
             <p className="text-white/60 mb-8">Vos données sont protégées.</p>
 
