@@ -1,23 +1,33 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Activity, ShieldCheck, Lock } from 'lucide-react';
 
 export const StepHome = ({ onStart, onUrgent }) => (
     <div className="flex flex-col items-center justify-center h-full px-6 text-center space-y-8">
         <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="space-y-2"
+            className="space-y-4"
         >
-            <div className="text-6xl mb-4">🇨🇩</div>
-            <h1 className="text-3xl font-black text-white">Alerte Santé</h1>
-            <p className="text-white/60 text-lg">Ministère de la Santé Publique</p>
+            <div className="w-24 h-24 mx-auto bg-neon-yellow/10 rounded-full flex items-center justify-center border border-neon-yellow/30">
+                <Activity size={48} className="text-neon-yellow" />
+            </div>
+            <h1 className="text-4xl font-black text-white">Alerte Santé</h1>
+            <p className="text-white/60 text-lg font-medium">République Démocratique du Congo</p>
         </motion.div>
 
-        <div className="bg-dark-800/50 p-6 rounded-2xl border border-white/10 text-left space-y-3">
-            <p className="flex items-center gap-3 text-white/80"><span className="text-neon-green">✅</span> Anonyme & Gratuit</p>
-            <p className="flex items-center gap-3 text-white/80"><span className="text-neon-green">✅</span> Sécurisé</p>
-            <p className="text-sm text-white/50 mt-2">Signalez tout abus, corruption ou rupture de stock dans les hôpitaux.</p>
+        <div className="bg-dark-800/50 p-6 rounded-2xl border border-white/10 text-left space-y-4">
+            <p className="flex items-center gap-4 text-white/90">
+                <ShieldCheck className="text-neon-green shrink-0" size={24} />
+                <span className="font-bold">Anonyme & Gratuit</span>
+            </p>
+            <p className="flex items-center gap-4 text-white/90">
+                <Lock className="text-neon-green shrink-0" size={24} />
+                <span className="font-bold">100% Sécurisé</span>
+            </p>
+            <p className="text-sm text-white/50 pt-2 border-t border-white/5 mt-2">
+                La plateforme officielle pour signaler abus, corruption et ruptures de stock.
+            </p>
         </div>
 
         <div className="w-full space-y-4">
@@ -31,9 +41,9 @@ export const StepHome = ({ onStart, onUrgent }) => (
 
             <button
                 onClick={onUrgent}
-                className="text-white/50 text-sm font-bold flex items-center justify-center gap-2 hover:text-neon-red transition-colors"
+                className="text-white/50 text-sm font-bold flex items-center justify-center gap-2 hover:text-neon-red transition-colors py-2"
             >
-                ⚠️ C'est une urgence vitale ?
+                <Activity size={16} /> C'est une urgence vitale ?
             </button>
         </div>
     </div>
@@ -45,9 +55,9 @@ export const StepUrgent = ({ onBack }) => (
             initial={{ scale: 0.9 }}
             animate={{ scale: [1, 1.05, 1] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
-            className="text-8xl mb-8"
+            className="mx-auto mb-8 bg-white/10 w-32 h-32 rounded-full flex items-center justify-center"
         >
-            🚑
+            <Activity size={64} color="white" />
         </motion.div>
         <h1 className="text-4xl font-black mb-6">URGENCE VITALE</h1>
         <p className="text-xl font-medium mb-12">
