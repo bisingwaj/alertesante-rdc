@@ -117,8 +117,13 @@ export const AudioRecorder = ({ onRecordingComplete, onCancel }) => {
 
     const stopResources = () => {
         if (animationRef.current) cancelAnimationFrame(animationRef.current);
-        if (audioContextRef.current) audioContextRef.current.close();
-        if (mediaRecorderRef.current) mediaRecorderRef.current.stream.getTracks().forEach(t => t.stop());
+        // Vérifier si le contexte existe et n'est pas déjà fermé
+        if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+            audioContextRef.current.close().catch(e => console.warn('AudioContext already closed', e));
+        }
+        if (mediaRecorderRef.current) {
+            mediaRecorderRef.current.stream.getTracks().forEach(t => t.stop());
+        }
     };
 
     const handleStop = () => {
