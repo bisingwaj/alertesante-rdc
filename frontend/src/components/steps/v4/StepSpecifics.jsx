@@ -1,4 +1,4 @@
-```javascript
+
 import React, { useState } from 'react';
 import { ArrowLeft, CheckSquare, Square, ChevronRight, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -17,9 +17,9 @@ const FORMS = {
     MEDS: {
         title: "Problème Médicament",
         questions: [
-             { id: 'm_type', label: "Quel est le défaut constaté ?", type: 'choice', options: ['Rupture de stock complète', 'Prix beaucoup trop élevé', 'Qualité douteuse (couleur/aspect)', 'Médicament périmé', 'Inefficacité totale', 'Effet secondaire grave'] },
-             { id: 'm_product', label: "Quel est le nom exact du produit ?", type: 'text', placeholder: "Ex: Paracétamol, Amoxicilline..." },
-             { id: 'm_source', label: "Où vous l'êtes-vous procuré ?", type: 'choice', options: ['Pharmacie de l\'Hôpital', 'Pharmacie Privée', 'Marché / Vendeur de rue', 'Don / ONG'] }
+            { id: 'm_type', label: "Quel est le défaut constaté ?", type: 'choice', options: ['Rupture de stock complète', 'Prix beaucoup trop élevé', 'Qualité douteuse (couleur/aspect)', 'Médicament périmé', 'Inefficacité totale', 'Effet secondaire grave'] },
+            { id: 'm_product', label: "Quel est le nom exact du produit ?", type: 'text', placeholder: "Ex: Paracétamol, Amoxicilline..." },
+            { id: 'm_source', label: "Où vous l'êtes-vous procuré ?", type: 'choice', options: ['Pharmacie de l\'Hôpital', 'Pharmacie Privée', 'Marché / Vendeur de rue', 'Don / ONG'] }
         ]
     },
     ALERT: {
@@ -50,7 +50,7 @@ export const StepSpecifics = ({ branch, onNext, onBack }) => {
 
     const handleAnswer = (val, type) => {
         let newAnswers = { ...answers };
-        
+
         if (type === 'multi') {
             const current = newAnswers[currentQuestion.id] || [];
             if (current.includes(val)) {
@@ -107,16 +107,16 @@ export const StepSpecifics = ({ branch, onNext, onBack }) => {
 
             {/* Progress Bar */}
             <div className="w-full h-1 bg-white/10 rounded-full mb-8 overflow-hidden">
-                <motion.div 
-                    initial={{ width: 0 }} 
-                    animate={{ width: `${ progress }% ` }} 
+                <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progress}% ` }}
                     className="h-full bg-neon-yellow transition-all duration-300"
                 />
             </div>
 
             {/* Question Card */}
             <AnimatePresence mode='wait'>
-                <motion.div 
+                <motion.div
                     key={currentIndex}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -128,15 +128,15 @@ export const StepSpecifics = ({ branch, onNext, onBack }) => {
                     <div className="flex-1 space-y-3 overflow-y-auto pb-4">
                         {currentQuestion.type === 'text' && (
                             <div className="relative">
-                                <input 
+                                <input
                                     autoFocus
-                                    type="text" 
+                                    type="text"
                                     placeholder={currentQuestion.placeholder}
                                     className="w-full bg-dark-800 border-b-2 border-white/20 py-4 text-xl outline-none focus:border-neon-yellow text-white placeholder-white/20 transition-colors"
                                     value={answers[currentQuestion.id] || ''}
                                     onChange={e => handleAnswer(e.target.value, 'text-input')} // Don't auto advance on input
                                 />
-                                <button 
+                                <button
                                     onClick={() => handleNextQuestion()}
                                     disabled={!canContinue()}
                                     className="absolute right-0 top-4 p-2 bg-neon-yellow text-black rounded-lg hover:scale-105 transition-transform disabled:opacity-50"
@@ -149,16 +149,16 @@ export const StepSpecifics = ({ branch, onNext, onBack }) => {
                         {currentQuestion.type === 'choice' && (
                             <div className="space-y-3">
                                 {currentQuestion.options.map((opt, i) => (
-                                    <motion.button 
+                                    <motion.button
                                         key={opt}
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: i * 0.05 }}
                                         onClick={() => handleAnswer(opt, 'choice')}
-                                        className={`w - full p - 5 rounded - 2xl text - left font - bold text - lg border transition - all flex items - center justify - between group ${ answers[currentQuestion.id] === opt ? 'bg-white text-black border-white' : 'bg-dark-800 border-white/10 text-white/70 hover:border-white/30' } `}
+                                        className={`w - full p - 5 rounded - 2xl text - left font - bold text - lg border transition - all flex items - center justify - between group ${answers[currentQuestion.id] === opt ? 'bg-white text-black border-white' : 'bg-dark-800 border-white/10 text-white/70 hover:border-white/30'} `}
                                     >
                                         <span>{opt}</span>
-                                        {answers[currentQuestion.id] === opt && <Check size={20} className="text-black"/>}
+                                        {answers[currentQuestion.id] === opt && <Check size={20} className="text-black" />}
                                     </motion.button>
                                 ))}
                             </div>
@@ -170,15 +170,15 @@ export const StepSpecifics = ({ branch, onNext, onBack }) => {
                                     {currentQuestion.options.map((opt, i) => {
                                         const selected = (answers[currentQuestion.id] || []).includes(opt);
                                         return (
-                                            <motion.button 
+                                            <motion.button
                                                 key={opt}
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 transition={{ delay: i * 0.05 }}
                                                 onClick={() => handleAnswer(opt, 'multi')}
-                                                className={`w - full p - 4 rounded - xl flex items - center gap - 4 border transition - all ${ selected ? 'bg-neon-green/20 border-neon-green text-neon-green' : 'bg-dark-800 border-white/10 text-white/70' } `}
+                                                className={`w - full p - 4 rounded - xl flex items - center gap - 4 border transition - all ${selected ? 'bg-neon-green/20 border-neon-green text-neon-green' : 'bg-dark-800 border-white/10 text-white/70'} `}
                                             >
-                                                <div className={`w - 6 h - 6 rounded border flex items - center justify - center ${ selected ? 'bg-neon-green border-neon-green text-black' : 'border-white/30' } `}>
+                                                <div className={`w - 6 h - 6 rounded border flex items - center justify - center ${selected ? 'bg-neon-green border-neon-green text-black' : 'border-white/30'} `}>
                                                     {selected && <Check size={16} strokeWidth={4} />}
                                                 </div>
                                                 <span className="font-medium text-lg text-left">{opt}</span>
@@ -186,7 +186,7 @@ export const StepSpecifics = ({ branch, onNext, onBack }) => {
                                         );
                                     })}
                                 </div>
-                                <button 
+                                <button
                                     onClick={() => handleNextQuestion()}
                                     disabled={!canContinue()}
                                     className="w-full py-4 mt-8 bg-neon-yellow text-black font-bold rounded-xl disabled:opacity-50"
@@ -201,4 +201,4 @@ export const StepSpecifics = ({ branch, onNext, onBack }) => {
         </div>
     );
 };
-```
+
