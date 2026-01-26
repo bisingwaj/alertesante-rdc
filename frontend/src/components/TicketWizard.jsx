@@ -13,7 +13,7 @@ import { StepCategory } from './steps/v3/StepCategory';
 import { StepDetails } from './steps/v3/StepDetails';
 import { StepTime } from './steps/v3/StepTime';
 import { StepGravity } from './steps/v3/StepGravity';
-import { StepContact } from './steps/v3/StepDetails'; // StepContact est resté dans StepDetails pour l'instant
+import { StepContact } from './steps/v3/StepContact';
 import { StepRecap, StepSuccess } from './steps/v3/StepReview';
 
 const TicketWizard = () => {
