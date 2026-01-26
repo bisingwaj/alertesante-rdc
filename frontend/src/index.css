@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-dark-900 text-white font-sans overflow-hidden;
+  /* Pas de scroll global, on gère par écran */
+}
+
+/* Animations customs si besoin, sinon Framer Motion */

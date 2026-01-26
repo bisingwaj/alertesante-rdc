@@ -1,0 +1,211 @@
+[
+    {
+        "province": "Kinshasa",
+        "children": [
+            {
+                "name": "Kinshasa",
+                "type": "VILLE",
+                "zonesSante": [
+                    "Bandalungwa",
+                    "Barumbu",
+                    "Binza Météo",
+                    "Binza Ozone",
+                    "Bumbu",
+                    "Gombe",
+                    "Kalamu I",
+                    "Kalamu II",
+                    "Kasa-Vubu",
+                    "Kimbanseke",
+                    "Kingabwa",
+                    "Kingasani",
+                    "Kintambo",
+                    "Kisenso",
+                    "Kokolo",
+                    "Lemba",
+                    "Limete",
+                    "Lingwala",
+                    "Makala",
+                    "Maluku I",
+                    "Maluku II",
+                    "Masina I",
+                    "Masina II",
+                    "Matete",
+                    "Mont-Ngafula I",
+                    "Mont-Ngafula II",
+                    "N'djili",
+                    "Ngaba",
+                    "Ngaliema",
+                    "Ngiri-Ngiri",
+                    "N'sele",
+                    "Police",
+                    "Selembao"
+                ]
+            }
+        ]
+    },
+    {
+        "province": "Nord-Kivu",
+        "children": [
+            {
+                "name": "Goma",
+                "type": "VILLE",
+                "zonesSante": [
+                    "Goma",
+                    "Karisimbi"
+                ]
+            },
+            {
+                "name": "Beni",
+                "type": "VILLE",
+                "zonesSante": [
+                    "Beni"
+                ]
+            },
+            {
+                "name": "Butembo",
+                "type": "VILLE",
+                "zonesSante": [
+                    "Butembo",
+                    "Katwa"
+                ]
+            },
+            {
+                "name": "Beni",
+                "type": "TERRITOIRE",
+                "zonesSante": [
+                    "Mabalako",
+                    "Oicha",
+                    "Mutwanga",
+                    "Kamango",
+                    "Kyondo",
+                    "Vuhovi"
+                ]
+            },
+            {
+                "name": "Lubero",
+                "type": "TERRITOIRE",
+                "zonesSante": [
+                    "Lubero",
+                    "Masereka",
+                    "Musienene",
+                    "Kayna",
+                    "Alimbongo",
+                    "Manguredjipa",
+                    "Bien"
+                ]
+            },
+            {
+                "name": "Masisi",
+                "type": "TERRITOIRE",
+                "zonesSante": [
+                    "Masisi",
+                    "Kirotshe",
+                    "Mweso",
+                    "Katoyi",
+                    "Kibua"
+                ]
+            },
+            {
+                "name": "Rutshuru",
+                "type": "TERRITOIRE",
+                "zonesSante": [
+                    "Rutshuru",
+                    "Rwanguba",
+                    "Binza",
+                    "Bambo",
+                    "Kibirizi"
+                ]
+            },
+            {
+                "name": "Walikale",
+                "type": "TERRITOIRE",
+                "zonesSante": [
+                    "Walikale",
+                    "Kibua",
+                    "Itebero",
+                    "Pingan"
+                ]
+            },
+            {
+                "name": "Nyiragongo",
+                "type": "TERRITOIRE",
+                "zonesSante": [
+                    "Nyiragongo"
+                ]
+            }
+        ]
+    },
+    {
+        "province": "Haut-Katanga",
+        "children": [
+            {
+                "name": "Lubumbashi",
+                "type": "VILLE",
+                "zonesSante": [
+                    "Lubumbashi",
+                    "Kamalondo",
+                    "Kenya",
+                    "Katuba",
+                    "Ruashi",
+                    "Kampemba",
+                    "Kisanga"
+                ]
+            },
+            {
+                "name": "Likasi",
+                "type": "VILLE",
+                "zonesSante": [
+                    "Likasi",
+                    "Panda",
+                    "Kikula"
+                ]
+            },
+            {
+                "name": "Kipushi",
+                "type": "TERRITOIRE",
+                "zonesSante": [
+                    "Kipushi",
+                    "Kafubu"
+                ]
+            },
+            {
+                "name": "Kambove",
+                "type": "TERRITOIRE",
+                "zonesSante": [
+                    "Kambove"
+                ]
+            },
+            {
+                "name": "Mitwaba",
+                "type": "TERRITOIRE",
+                "zonesSante": [
+                    "Mitwaba",
+                    "Mufunga-Sampwe"
+                ]
+            },
+            {
+                "name": "Pweto",
+                "type": "TERRITOIRE",
+                "zonesSante": [
+                    "Pweto",
+                    "Kilwa"
+                ]
+            },
+            {
+                "name": "Sakania",
+                "type": "TERRITOIRE",
+                "zonesSante": [
+                    "Sakania"
+                ]
+            },
+            {
+                "name": "Kasenga",
+                "type": "TERRITOIRE",
+                "zonesSante": [
+                    "Kasenga",
+                    "Kashobwe"
+                ]
+            }
+        ]
+    }
+]

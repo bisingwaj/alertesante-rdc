@@ -1,0 +1,106 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// --- ENUMS ---
+
+enum Role {
+  CITOYEN
+  AGENT_ZS
+  AGENT_DPS
+  INSPECTEUR
+  ADMIN_IT
+}
+
+enum TicketStatus {
+  NOUVEAU
+  PRIS_EN_CHARGE
+  RESOLU
+  CLOTURE_REJET
+}
+
+enum Gravity {
+  NORMAL
+  GRAVE
+  TRES_GRAVE     // Déclenche alerte prioritaire
+}
+
+enum Channel {
+  WHATSAPP
+  WEB_MOBILE
+  APPEL
+}
+
+enum ImpactLevel {
+  ONE_PERSON     // Une personne
+  SEVERAL        // Plusieurs personnes
+  MANY           // Beaucoup / Tout l'hôpital
+}
+
+enum TimeSince {
+  TODAY          // Aujourd'hui
+  FEW_DAYS       // 2-3 jours
+  WEEK           // 1 semaine
+  MORE           // Plus longtemps
+}
+
+enum ContactPreference {
+  WHATSAPP
+  CALL
+  SMS
+}
+
+// --- MODELS ---
+
+model User {
+  id              String    @id @default(uuid())
+  phoneNumber     String?   @unique
+  role            Role      @default(CITOYEN)
+  createdAt       DateTime  @default(now())
+  tickets         Ticket[]
+}
+
+model Ticket {
+  id              String       @id @default(uuid()) // UUID interne
+  shortId         String       @unique              // ID Public (ex: MS-2026-X)
+  channel         Channel      @default(WEB_MOBILE)
+  status          TicketStatus @default(NOUVEAU)
+  
+  // 1. Type & Catégorie
+  type            String       // PLAINTE, RUPTURE, ALERTE
+  category        String       // Détail précis (ex: "Paiement illégal")
+  
+  // 2. Localisation RDC
+  province        String
+  cityOrTerritory String       // Ville ou Territoire
+  healthZone      String?      // Zone de Santé
+  structureName   String?      // Nom structure (si connue)
+  
+  // 3. Détails
+  description     String?      // Texte
+  audioUrl        String?      // URL Vocal
+  photoUrl        String?      // URL Photo
+  
+  // 4. Qualification
+  timeSince       TimeSince?
+  impactLevel     ImpactLevel?
+  gravity         Gravity      @default(NORMAL)
+  
+  // 5. Contact
+  isAnonymous     Boolean      @default(true)
+  contactPhone    String?      // Numéro si pas anonyme
+  contactPref     ContactPreference?
+
+  // Méta
+  author          User?        @relation(fields: [authorId], references: [id])
+  authorId        String?
+  
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+}
