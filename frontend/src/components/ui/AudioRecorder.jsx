@@ -99,33 +99,56 @@ export const AudioRecorder = ({ onRecordingComplete, onCancel }) => {
         const dataArray = new Uint8Array(bufferLength);
 
         const render = () => {
-            if (status !== 'recording') return; // Stop drawing if not recording
+            if (status !== 'recording') return;
 
             analyser.getByteFrequencyData(dataArray);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // CERCLE CENTRAL PULSANT (Basses fréquences)
-            const bass = dataArray.slice(0, 10).reduce((a, b) => a + b, 0) / 10;
-            const scale = 1 + (bass / 256) * 0.5; // Scale entre 1 et 1.5
+            // SHAZAM VIBE (Organic Center)
+            // On se concentre sur les basses pour le "kick" (0-20Hz environ)
+            const bass = dataArray.slice(0, 8).reduce((a, b) => a + b, 0) / 8; // Moyenne basses
+            const mids = dataArray.slice(10, 50).reduce((a, b) => a + b, 0) / 40; // Moyenne mids
 
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            const pulse = bass / 256; // 0.0 to 1.0
+
+            // 1. Core (Noyau Central Intense)
             ctx.beginPath();
-            ctx.arc(canvas.width / 2, canvas.height / 2, 60 * scale, 0, 2 * Math.PI);
-            ctx.fillStyle = `rgba(52, 199, 89, ${0.2 + (bass / 512)})`; // Neon Green transp
+            const coreSize = 40 + (pulse * 30);
+            ctx.arc(centerX, centerY, coreSize, 0, 2 * Math.PI);
+            ctx.fillStyle = '#34C759'; // Neon Green
+            ctx.shadowBlur = 20 + (pulse * 20);
+            ctx.shadowColor = '#34C759';
             ctx.fill();
+            ctx.shadowBlur = 0; // Reset shadow for perfs
 
-            ctx.beginPath();
-            ctx.arc(canvas.width / 2, canvas.height / 2, 40 * scale, 0, 2 * Math.PI);
-            ctx.fillStyle = '#34C759'; // Neon Green solid
-            ctx.fill();
-
-            // ONDES CIRCULAIRES (Moyennes fréquences)
-            // On dessine des cercles concentriques qui réagissent
-            for (let i = 0; i < 3; i++) {
+            // 2. Ondes concentriques (Ripple Effect)
+            // On dessine 3 cercles qui bougent avec des retards
+            for (let i = 1; i <= 3; i++) {
                 ctx.beginPath();
-                ctx.arc(canvas.width / 2, canvas.height / 2, (80 + i * 30) + (bass / 5), 0, 2 * Math.PI);
-                ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 - i * 0.02})`;
-                ctx.lineWidth = 2;
+                // Le rayon réagit aux mids aussi pour de la variation
+                const radius = coreSize + (i * 30) + (Math.sin(Date.now() / 200 + i) * 5) + (mids / 5);
+                ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                ctx.strokeStyle = `rgba(52, 199, 89, ${0.4 - (i * 0.1)})`; // Fade out
+                ctx.lineWidth = 2 + (pulse * 3);
                 ctx.stroke();
+            }
+
+            // 3. Particules périphériques (Optional High Freqs)
+            // Si le volume est fort, on ajoute des petits points random autour
+            if (bass > 100) {
+                for (let j = 0; j < 4; j++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const dist = coreSize + 60 + Math.random() * 50;
+                    const px = centerX + Math.cos(angle) * dist;
+                    const py = centerY + Math.sin(angle) * dist;
+                    ctx.beginPath();
+                    ctx.arc(px, py, 2, 0, 2 * Math.PI);
+                    ctx.fillStyle = `rgba(255, 255, 255, 0.5)`;
+                    ctx.fill();
+                }
             }
 
             animationRef.current = requestAnimationFrame(render);
