@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, MapPin, Loader2 } from 'lucide-react';
+import { Send, MapPin, Loader2, ArrowLeft } from 'lucide-react';
 import { supabase } from '../../../supabaseClient';
 
 export const StepRecap = ({ data, onNext, onBack }) => {
@@ -57,6 +57,9 @@ export const StepRecap = ({ data, onNext, onBack }) => {
 
     return (
         <div className="flex flex-col h-full justify-between pt-4">
+            <button onClick={onBack} className="mb-2 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+                <ArrowLeft size={24} className="text-white" />
+            </button>
             <h2 className="text-2xl font-bold mb-4">Vérification ✅</h2>
 
             <div className="flex-1 overflow-y-auto space-y-4 pr-1">
