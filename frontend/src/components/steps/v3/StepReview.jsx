@@ -10,50 +10,55 @@ export const StepRecap = ({ data, onNext, onBack }) => {
     const handleSend = async () => {
         setSending(true);
 
-        // Calcul Gravité locale (si pas fait avant)
-        let gravity = 'NORMAL';
-        if (data.impact === 'MANY' || data.type === 'ALERTE_SANITAIRE') gravity = 'GRAVE';
-
         const payload = {
             short_id: `WEB-${Math.floor(1000 + Math.random() * 9000)}`,
-            type: data.type || 'AUTRE',
-            category: data.category?.id || 'AUTRE',
 
-            province: data.province,
-            city_or_territory: data.child,
-            health_zone: data.zs,
-            structure_name: data.structure,
+            // V4 DATA MAPPING
+            type: data.branch || 'AUTRE',
+            description: data.description || 'Pas de description',
 
-            description: data.description,
-            photo_url: data.photoUrl, // NOUVEAU
-            audio_url: data.audioUrl, // NOUVEAU
-            latitude: data.gps?.latitude, // NOUVEAU
-            longitude: data.gps?.longitude, // NOUVEAU
+            // Location V4 flatten
+            province: data.location?.administrative?.province || data.province, // Fallback V3
+            city_or_territory: data.location?.administrative?.child || data.city_or_territory,
+            health_zone: data.location?.administrative?.zs || data.health_zone,
+            structure_name: data.location?.name || data.structure || 'Non spécifié',
 
+            latitude: data.location?.gps?.latitude || data.gps?.latitude,
+            longitude: data.location?.gps?.longitude || data.gps?.longitude,
+
+            // Triage V4
             impact_level: data.impact,
-            time_since: data.timeSince,
-            gravity: gravity,
+            time_since: data.time || data.timeSince,
+            gravity: data.danger ? 'DANGER' : 'NORMAL', // Simple logic for now
 
-            is_anonymous: !data.hasContact,
-            contact_phone: data.phone,
-            contact_pref: data.pref
+            // Metadata
+            photo_url: data.photoUrl,
+            audio_url: data.audioUrl,
+
+            // JSONB for specific answers
+            metadata: data.specifics || {},
+
+            is_anonymous: true, // Default V4
+            status: 'NEW'
         };
 
-        console.log("Sending to Supabase:", payload);
+        console.log("Sending V4:", payload);
 
         const { error } = await supabase.from('tickets').insert([payload]);
 
         if (error) {
             console.error('Supabase Error:', error);
-            alert("Erreur d'envoi: " + error.message);
+            alert("Erreur: " + error.message);
             setSending(false);
         } else {
             setTimeout(() => {
                 setSending(false);
-                onNext(); // Go to success
+                onNext();
             }, 1000);
         }
     };
+
+    const labels = { 'QUALITY': 'Qualité des Soins', 'MEDS': 'Médicaments', 'ALERT': 'Alerte Sanitaire', 'HYGIENE': 'Hygiène' };
 
     return (
         <div className="flex flex-col h-full justify-between pt-4">
@@ -63,23 +68,50 @@ export const StepRecap = ({ data, onNext, onBack }) => {
             <h2 className="text-2xl font-bold mb-4">Vérification ✅</h2>
 
             <div className="flex-1 overflow-y-auto space-y-4 pr-1">
+                {/* HEADER */}
                 <div className="bg-dark-800 p-4 rounded-2xl border border-white/5">
-                    <span className="text-xs text-white/40 uppercase font-bold">Problème</span>
-                    <p className="text-lg font-bold text-white">{data.category?.label || data.category}</p>
-                    <span className="text-neon-yellow text-sm">{data.type}</span>
+                    <span className="text-xs text-white/40 uppercase font-bold">Signalement</span>
+                    <p className="text-xl font-bold text-white">{labels[data.branch] || data.branch}</p>
+                    <div className="flex gap-2 mt-2">
+                        {data.danger && <span className="bg-red-500/20 text-red-500 text-xs px-2 py-1 rounded font-bold">DANGER</span>}
+                        {data.impact === 'MANY' && <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded font-bold">PLUSIEURS PERS.</span>}
+                    </div>
                 </div>
 
+                {/* LOCATION */}
                 <div className="bg-dark-800 p-4 rounded-2xl border border-white/5">
                     <span className="text-xs text-white/40 uppercase font-bold">Lieu</span>
-                    <p className="text-white flex items-center gap-2"><MapPin size={16} /> {data.province}</p>
-                    <p className="text-white/60 text-sm ml-6">{data.child} • {data.zs}</p>
-                    {data.structure && <p className="text-neon-yellow text-sm ml-6 mt-1">🏥 {data.structure}</p>}
+                    <p className="text-white font-bold">{data.location?.name || 'Lieu non précisé'}</p>
+                    <p className="text-white/60 text-sm">{data.location?.administrative?.province} • {data.location?.administrative?.child}</p>
+                    {data.location?.gps && <p className="text-neon-green text-xs mt-1 flex items-center gap-1"><MapPin size={12} /> GPS Inclus</p>}
                 </div>
 
+                {/* SPECIFICS ANSWERS */}
+                {data.specifics && (
+                    <div className="bg-dark-800 p-4 rounded-2xl border border-white/5 space-y-3">
+                        <span className="text-xs text-white/40 uppercase font-bold">Détails</span>
+                        {Object.entries(data.specifics).map(([key, val]) => (
+                            <div key={key}>
+                                <p className="text-white text-sm">
+                                    {Array.isArray(val) ? val.join(', ') : val}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {/* DESCRIPTION */}
                 {data.description && (
                     <div className="bg-dark-800 p-4 rounded-2xl border border-white/5">
                         <span className="text-xs text-white/40 uppercase font-bold">Message</span>
-                        <p className="text-white italic">"{data.description}"</p>
+                        <p className="text-white italic text-sm">"{data.description}"</p>
+                    </div>
+                )}
+                {/* MEDIA */}
+                {(data.photoUrl || data.audioUrl) && (
+                    <div className="flex gap-2">
+                        {data.photoUrl && <div className="px-3 py-1 bg-white/10 rounded text-xs text-white">📷 Photo incluse</div>}
+                        {data.audioUrl && <div className="px-3 py-1 bg-white/10 rounded text-xs text-white">🎤 Audio inclus</div>}
                     </div>
                 )}
             </div>

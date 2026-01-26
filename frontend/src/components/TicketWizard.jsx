@@ -1,20 +1,16 @@
-
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ImmersiveLayout } from './layout/ImmersiveLayout';
 import { ProgressBar } from './ui/ProgressBar';
 
-// Steps
-import { StepHome, StepUrgent } from './steps/v3/StepHome';
-import { StepType } from './steps/v3/StepType';
-import { StepGeo } from './steps/v3/StepGeo';
-import { StepStructure } from './steps/v3/StepStructure';
-import { StepCategory } from './steps/v3/StepCategory';
-import { StepDetails } from './steps/v3/StepDetails';
-import { StepTime } from './steps/v3/StepTime';
-import { StepGravity } from './steps/v3/StepGravity';
-import { StepContact } from './steps/v3/StepContact';
-import { StepRecap, StepSuccess } from './steps/v3/StepReview';
+// Steps V4
+import { StepHome, StepUrgent } from './steps/v3/StepHome'; // Reuse Home/Urgent
+import { StepType } from './steps/v4/StepType';
+import { StepTriage } from './steps/v4/StepTriage';
+import { StepLocation } from './steps/v4/StepLocation';
+import { StepMedia } from './steps/v4/StepMedia';
+import { StepSpecifics } from './steps/v4/StepSpecifics';
+import { StepRecap, StepSuccess } from './steps/v3/StepReview'; // Reuse Review logic (needs tweak)
 
 const TicketWizard = () => {
     const [currentScreen, setCurrentScreen] = useState('HOME');
@@ -29,28 +25,46 @@ const TicketWizard = () => {
 
     const goBack = (prevScreen) => setCurrentScreen(prevScreen);
 
-    // MAPPING ECRANS
+    // MAPPING ECRANS V4
     const SCREENS = {
         'HOME': <StepHome onStart={() => setCurrentScreen('TYPE')} onUrgent={() => setCurrentScreen('URGENT')} />,
         'URGENT': <StepUrgent onBack={() => setCurrentScreen('HOME')} />,
 
-        // FLOW (Avec Navigation BIDIRECTIONNELLE)
-        'TYPE': <StepType onNext={(d) => goNext(d, 'GEO')} onBack={() => goBack('HOME')} />,
-        'GEO': <StepGeo onNext={(d) => goNext(d, 'STRUCTURE')} onBack={() => goBack('TYPE')} />,
-        'STRUCTURE': <StepStructure onNext={(d) => goNext(d, 'CATEGORY')} onBack={() => goBack('GEO')} />,
-        'CATEGORY': <StepCategory onNext={(d) => goNext(d, 'DETAILS')} onBack={() => goBack('STRUCTURE')} />,
-        'DETAILS': <StepDetails onNext={(d) => goNext(d, 'TIME')} onBack={() => goBack('CATEGORY')} />,
-        'TIME': <StepTime onNext={(d) => goNext(d, 'GRAVITY')} onBack={() => goBack('DETAILS')} />,
-        'GRAVITY': <StepGravity onNext={(d) => goNext(d, 'CONTACT')} onBack={() => goBack('TIME')} />,
-        'CONTACT': <StepContact onNext={(d) => goNext(d, 'RECAP')} onBack={() => goBack('GRAVITY')} />,
+        // NOUVEAU FLOW V4
+        'TYPE': <StepType onNext={(d) => goNext(d, 'TRIAGE')} onBack={() => goBack('HOME')} />,
 
-        // END
-        'RECAP': <StepRecap data={data} onNext={() => setCurrentScreen('SUCCESS')} onBack={() => setCurrentScreen('CONTACT')} />,
+        'TRIAGE': <StepTriage
+            onNext={(d) => goNext(d, 'LOCATION')}
+            onBack={() => goBack('TYPE')}
+        />,
+
+        'LOCATION': <StepLocation
+            onNext={(d) => goNext(d, 'MEDIA')}
+            onBack={() => goBack('TRIAGE')}
+        />,
+
+        'MEDIA': <StepMedia
+            onNext={(d) => goNext(d, 'SPECIFICS')}
+            onBack={() => goBack('LOCATION')}
+        />,
+
+        'SPECIFICS': <StepSpecifics
+            branch={data.branch}
+            onNext={(d) => goNext(d, 'RECAP')}
+            onBack={() => goBack('MEDIA')}
+        />,
+
+        // FIN
+        'RECAP': <StepRecap
+            data={data}
+            onNext={() => setCurrentScreen('SUCCESS')}
+            onBack={() => setCurrentScreen('SPECIFICS')}
+        />,
+
         'SUCCESS': <StepSuccess onHome={() => { setData({}); setCurrentScreen('HOME'); }} />
     };
 
-    // Calcul étape pour ProgressBar (Home/Urgent/Success = 0 ou Hidden)
-    const FLOW_ORDER = ['TYPE', 'GEO', 'STRUCTURE', 'CATEGORY', 'DETAILS', 'TIME', 'GRAVITY', 'CONTACT', 'RECAP'];
+    const FLOW_ORDER = ['TYPE', 'TRIAGE', 'LOCATION', 'MEDIA', 'SPECIFICS', 'RECAP'];
     const stepIndex = FLOW_ORDER.indexOf(currentScreen);
 
     return (
