@@ -98,6 +98,7 @@ model Ticket {
   contactPref     ContactPreference?
 
   // Méta
+  metadata        Json?        // Réunir tous les détails V5 ici
   author          User?        @relation(fields: [authorId], references: [id])
   authorId        String?
   
