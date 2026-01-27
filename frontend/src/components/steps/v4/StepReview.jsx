@@ -12,26 +12,35 @@ export const StepRecap = ({ data, onNext, onBack }) => {
         setSending(true);
 
         const payload = {
-            short_id: `WEB-${Math.floor(1000 + Math.random() * 9000)}`,
+            shortId: `WEB-${Math.floor(1000 + Math.random() * 9000)}`,
             type: data.branch || 'AUTRE',
             description: data.description || 'Pas de description',
+
             // Location
             province: data.location?.administrative?.province || data.province,
-            city_or_territory: data.location?.administrative?.child || data.city_or_territory,
-            health_zone: data.location?.administrative?.zs || data.health_zone,
-            structure_name: data.location?.name || data.structure || 'Non spécifié',
-            latitude: data.location?.gps?.latitude,
-            longitude: data.location?.gps?.longitude,
+            cityOrTerritory: data.location?.administrative?.child || data.city_or_territory,
+            healthZone: data.location?.administrative?.zs || data.health_zone,
+            structureName: data.location?.name || data.structure || 'Non spécifié',
+
             // Triage
-            impact_level: data.impact,
-            time_since: data.time || data.timeSince,
+            impactLevel: data.impact,
+            timeSince: data.time || data.timeSince,
             gravity: data.danger ? 'DANGER' : 'NORMAL',
-            // Metadata
-            photo_url: data.photoUrl,
-            audio_url: data.audioUrl,
-            metadata: data.specifics || {},
-            is_anonymous: true,
-            status: 'NEW'
+
+            // Media
+            photoUrl: data.photoUrl,
+            audioUrl: data.audioUrl,
+
+            // Metadata (include GPS here)
+            metadata: {
+                ...(data.specifics || {}),
+                latitude: data.location?.gps?.latitude,
+                longitude: data.location?.gps?.longitude
+            },
+
+            isAnonymous: true,
+            status: 'NOUVEAU', // Enum matches
+            channel: 'WEB_MOBILE'
         };
 
         const { error } = await supabase.from('tickets').insert([payload]);
