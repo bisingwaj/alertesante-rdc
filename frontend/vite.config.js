@@ -42,6 +42,7 @@ export default defineConfig({
     })
   ],
   build: {
+    sourcemap: false,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -50,5 +51,8 @@ export default defineConfig({
         }
       }
     }
+  },
+  css: {
+    devSourcemap: false
   }
 })
