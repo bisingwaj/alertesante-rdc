@@ -89,13 +89,13 @@ const FORMS = {
 export const StepSpecifics = ({ branch, onNext, onBack }) => {
     const config = FORMS[branch] || FORMS['QUALITY'];
 
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [answers, setAnswers] = useState({});
+
     // Validation Logic
     const totalQuestions = config.questions.length;
     const answeredCount = Object.keys(answers).length;
     const isValid = answeredCount >= totalQuestions;
-
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [answers, setAnswers] = useState({});
 
     const currentQuestion = config.questions[currentIndex];
     const progress = ((currentIndex + 1) / config.questions.length) * 100;
