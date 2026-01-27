@@ -14,7 +14,14 @@ export const StepMedia = ({ onNext, onBack }) => {
 
     const handleUpload = async (file, type) => {
         setUploading(true);
-        const ext = type === 'audio' ? 'webm' : 'jpg';
+
+        let ext = 'jpg';
+        if (type === 'audio') {
+            if (file.type.includes('mp4')) ext = 'mp4';
+            else if (file.type.includes('ogg')) ext = 'ogg';
+            else ext = 'webm';
+        }
+
         const path = `${type}s/${Date.now()}-${Math.random().toString(36).substr(7)}.${ext}`;
         try {
             const { error } = await supabase.storage.from('evidence').upload(path, file);
@@ -23,6 +30,7 @@ export const StepMedia = ({ onNext, onBack }) => {
             if (type === 'audio') setAudioUrl(data.publicUrl);
             else setPhotoUrl(data.publicUrl);
         } catch (e) {
+            console.error(e);
             alert("Erreur upload: " + e.message);
         } finally {
             setUploading(false);
