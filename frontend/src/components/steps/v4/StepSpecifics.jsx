@@ -88,6 +88,12 @@ const FORMS = {
 
 export const StepSpecifics = ({ branch, onNext, onBack }) => {
     const config = FORMS[branch] || FORMS['QUALITY'];
+
+    // Validation Logic
+    const totalQuestions = config.questions.length;
+    const answeredCount = Object.keys(answers).length;
+    const isValid = answeredCount >= totalQuestions;
+
     const [currentIndex, setCurrentIndex] = useState(0);
     const [answers, setAnswers] = useState({});
 
@@ -271,6 +277,19 @@ export const StepSpecifics = ({ branch, onNext, onBack }) => {
                     </div>
                 </motion.div>
             </AnimatePresence>
+
+            <button
+                onClick={() => isValid && onNext({ specifics: answers })}
+                disabled={!isValid}
+                className={`w-full py-4 text-black font-bold rounded-xl mt-4 mb-8 transition-all duration-300
+                    ${isValid
+                        ? 'bg-neon-yellow hover:scale-[1.02] shadow-[0_0_20px_rgba(255,230,0,0.3)]'
+                        : 'bg-white/10 text-white/30 cursor-not-allowed'
+                    }
+                `}
+            >
+                {isValid ? 'Continuer' : 'Remplissez tout pour continuer'}
+            </button>
         </div>
     );
 };

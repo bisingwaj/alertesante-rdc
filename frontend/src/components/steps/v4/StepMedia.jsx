@@ -83,8 +83,12 @@ export const StepMedia = ({ onNext, onBack }) => {
                     </div>
                 </div>
 
-                <button onClick={() => onNext({ description: desc, photoUrl, audioUrl })} className="w-full py-4 bg-neon-yellow text-black font-bold rounded-xl mt-auto mb-8">
-                    Continuer
+                <button
+                    onClick={() => onNext({ description: desc, photoUrl, audioUrl })}
+                    disabled={!desc && !photoUrl && !audioUrl}
+                    className="w-full py-4 bg-neon-yellow text-black font-bold rounded-xl mt-auto mb-8 disabled:opacity-50 disabled:bg-white/10 disabled:text-white/30 transition-all"
+                >
+                    {(!desc && !photoUrl && !audioUrl) ? 'Ajoutez une info pour continuer' : 'Continuer'}
                 </button>
             </div>
         </>

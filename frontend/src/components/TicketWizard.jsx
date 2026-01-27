@@ -10,11 +10,13 @@ import { StepTriage } from './steps/v4/StepTriage';
 import { StepLocation } from './steps/v4/StepLocation';
 import { StepMedia } from './steps/v4/StepMedia';
 import { StepSpecifics } from './steps/v4/StepSpecifics';
-import { StepRecap, StepSuccess } from './steps/v3/StepReview'; // Reuse Review logic (needs tweak)
+
+import { StepRecap, StepSuccess } from './steps/v4/StepReview'; // UPDATED V4 IMPORT
 
 const TicketWizard = () => {
     const [currentScreen, setCurrentScreen] = useState('HOME');
     const [data, setData] = useState({});
+    const [lastTicketId, setLastTicketId] = useState(null); // Track Ticket ID
 
     const updateData = (newData) => setData(prev => ({ ...prev, ...newData }));
 
@@ -57,11 +59,11 @@ const TicketWizard = () => {
         // FIN
         'RECAP': <StepRecap
             data={data}
-            onNext={() => setCurrentScreen('SUCCESS')}
+            onNext={(id) => { setLastTicketId(id); setCurrentScreen('SUCCESS'); }}
             onBack={() => setCurrentScreen('SPECIFICS')}
         />,
 
-        'SUCCESS': <StepSuccess onHome={() => { setData({}); setCurrentScreen('HOME'); }} />
+        'SUCCESS': <StepSuccess ticketId={lastTicketId} onHome={() => { setData({}); setCurrentScreen('HOME'); }} />
     };
 
     const FLOW_ORDER = ['TYPE', 'TRIAGE', 'LOCATION', 'MEDIA', 'SPECIFICS', 'RECAP'];
