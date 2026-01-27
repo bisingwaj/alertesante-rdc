@@ -46,8 +46,8 @@ export const StepRecap = ({ data, onNext, onBack }) => {
         const { error } = await supabase.from('tickets').insert([payload]);
 
         if (error) {
-            console.error('Supabase Error:', error);
-            alert("Erreur: " + error.message);
+            console.error('Supabase Error Full:', JSON.stringify(error, null, 2));
+            alert("Erreur Envoi: " + (error.message || error.details || JSON.stringify(error)));
             setSending(false);
         } else {
             // Success Animation Trigger
