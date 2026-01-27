@@ -2,16 +2,13 @@
 import React, { useState } from 'react';
 import { ArrowLeft, AlertTriangle, Users, Calendar, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { InfoButton } from '../../ui/InfoButton';
 
 export const StepTriage = ({ onNext, onBack }) => {
     const [danger, setDanger] = useState(null); // YES/NO
 
     const handleDanger = (isDanger) => {
         setDanger(isDanger);
-        if (!isDanger) {
-            // Pas de danger, on demande le reste
-            // Pour simplifier, on peut enchainer dans le même écran ou juste passer danger=false
-        }
     };
 
     if (danger === true) {
@@ -54,14 +51,17 @@ export const StepTriage = ({ onNext, onBack }) => {
 
             {/* DANGER QUESTION */}
             <div className="mb-8">
-                <p className="text-white/60 mb-3 font-bold flex items-center gap-2"><AlertTriangle size={18} className="text-neon-red" /> Y a-t-il un danger immédiat ?</p>
+                <p className="text-white/60 mb-3 font-bold flex items-center gap-2">
+                    <AlertTriangle size={18} className="text-neon-red" />
+                    Y a-t-il un danger immédiat ?
+                </p>
                 <div className="grid grid-cols-2 gap-3">
                     <button onClick={() => handleDanger(true)} className="py-4 bg-dark-800 border border-white/10 rounded-xl hover:border-red-500 font-bold text-red-400">OUI</button>
                     <button onClick={() => setDanger(false)} className={`py-4 rounded-xl font-bold border transition-colors ${danger === false ? 'bg-white text-black' : 'bg-dark-800 border-white/10 text-white'}`}>NON</button>
                 </div>
             </div>
 
-            {/* OTHER QUESTIONS (Only if Danger is NO or NULL yet, but here we simplify) */}
+            {/* OTHER QUESTIONS */}
             {danger === false && (
                 <QuestionsPart2 onNext={onNext} />
             )}
@@ -76,19 +76,31 @@ const QuestionsPart2 = ({ onNext }) => {
     return (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
             <div>
-                <p className="text-white/60 mb-3 font-bold flex items-center gap-2"><Users size={18} className="text-blue-400" /> Combien de personnes ?</p>
+                <p className="text-white/60 mb-3 font-bold flex items-center gap-1">
+                    <Users size={18} className="text-blue-400 mr-1" />
+                    Personnes affectées
+                    <InfoButton text="Ne comptez que les personnes qui subissent directement le problème (ex: patients non soignés, victimes d'extorsion)." />
+                </p>
                 <div className="grid grid-cols-2 gap-3">
-                    <button onClick={() => setImpact('ONE')} className={`py-3 rounded-xl text-sm font-bold border ${impact === 'ONE' ? 'bg-neon-green/20 border-neon-green text-neon-green' : 'bg-dark-800 border-white/10'}`}>Juste une</button>
-                    <button onClick={() => setImpact('MANY')} className={`py-3 rounded-xl text-sm font-bold border ${impact === 'MANY' ? 'bg-neon-green/20 border-neon-green text-neon-green' : 'bg-dark-800 border-white/10'}`}>Plusieurs</button>
+                    <button onClick={() => setImpact('ONE')} className={`py-3 rounded-xl text-sm font-bold border ${impact === 'ONE' ? 'bg-neon-green/20 border-neon-green text-neon-green' : 'bg-dark-800 border-white/10'}`}>Juste une personne</button>
+                    <button onClick={() => setImpact('MANY')} className={`py-3 rounded-xl text-sm font-bold border ${impact === 'MANY' ? 'bg-neon-green/20 border-neon-green text-neon-green' : 'bg-dark-800 border-white/10'}`}>Plusieurs personnes</button>
                 </div>
             </div>
 
             <div>
-                <p className="text-white/60 mb-3 font-bold flex items-center gap-2"><Calendar size={18} className="text-neon-yellow" /> Quand cela s'est passé ?</p>
+                <p className="text-white/60 mb-3 font-bold flex items-center gap-1">
+                    <Calendar size={18} className="text-neon-yellow mr-1" />
+                    Date de l'incident
+                    <InfoButton text="Si ça arrive tout le temps, choisissez 'Aujourd'hui' ou précisez dans la description." />
+                </p>
                 <div className="grid grid-cols-3 gap-2">
-                    {['Aujourdhui', 'Semaine', 'Avant'].map(t => (
-                        <button key={t} onClick={() => setTime(t)} className={`py-3 rounded-xl text-xs font-bold border ${time === t ? 'bg-white text-black' : 'bg-dark-800 border-white/10 text-white/60'}`}>
-                            {t}
+                    {[
+                        { id: 'Aujourdhui', label: "Aujourd'hui" },
+                        { id: 'Semaine', label: "Cette semaine" },
+                        { id: 'Avant', label: "Plus ancien" }
+                    ].map(t => (
+                        <button key={t.id} onClick={() => setTime(t.id)} className={`py-3 rounded-xl text-xs font-bold border ${time === t.id ? 'bg-white text-black' : 'bg-dark-800 border-white/10 text-white/60'}`}>
+                            {t.label}
                         </button>
                     ))}
                 </div>
@@ -97,7 +109,7 @@ const QuestionsPart2 = ({ onNext }) => {
             <button
                 disabled={!impact || !time}
                 onClick={() => onNext({ danger: false, impact, time })}
-                className="w-full py-4 bg-neon-yellow text-black font-bold rounded-xl disabled:opacity-50 mt-8"
+                className="w-full py-4 bg-neon-yellow text-black font-bold rounded-xl disabled:opacity-50 mt-8 hover:scale-[1.02] transition-transform"
             >
                 Continuer
             </button>

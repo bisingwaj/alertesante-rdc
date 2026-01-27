@@ -20,15 +20,23 @@ export const GeoSelector = ({ onComplete }) => {
     const [openZS, setOpenZS] = useState(false); // Si on avait les ZS
 
     useEffect(() => {
-        // Load provinces
-        const provs = Object.keys(adminData).map(p => ({ id: p, label: p }));
+        // Load provinces (New Array Structure)
+        const provs = adminData.map(p => ({ id: p.province, label: p.province }));
         setProvinces(provs.sort((a, b) => a.label.localeCompare(b.label)));
     }, []);
 
     useEffect(() => {
         if (selProvince) {
-            const childs = adminData[selProvince.id] || [];
-            setTerritories(childs.map(c => ({ id: c, label: c })).sort((a, b) => a.label.localeCompare(b.label)));
+            // Find the province object in the array
+            const provData = adminData.find(p => p.province === selProvince.id);
+            const childs = provData ? provData.children : [];
+
+            setTerritories(childs.map(c => ({
+                id: c.name,
+                label: c.name,
+                type: c.type
+            })).sort((a, b) => a.label.localeCompare(b.label)));
+
             setSelChild(null); // Reset child when province changes
         }
     }, [selProvince]);
@@ -99,6 +107,10 @@ export const GeoSelector = ({ onComplete }) => {
                 title="Ville ou Territoire"
                 options={territories}
                 onSelect={setSelChild}
+                groups={[
+                    { key: 'VILLE', label: 'VILLE(S)' },
+                    { key: 'TERRITOIRE', label: 'TERRITOIRE(S)' }
+                ]}
             />
         </div>
     );

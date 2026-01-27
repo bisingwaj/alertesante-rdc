@@ -1,137 +1,71 @@
 [
     {
-        "province": "Kinshasa",
+        "province": "Bas-Uele",
         "children": [
             {
-                "name": "Kinshasa",
-                "type": "VILLE",
-                "zonesSante": [
-                    "Bandalungwa",
-                    "Barumbu",
-                    "Binza Météo",
-                    "Binza Ozone",
-                    "Bumbu",
-                    "Gombe",
-                    "Kalamu I",
-                    "Kalamu II",
-                    "Kasa-Vubu",
-                    "Kimbanseke",
-                    "Kingabwa",
-                    "Kingasani",
-                    "Kintambo",
-                    "Kisenso",
-                    "Kokolo",
-                    "Lemba",
-                    "Limete",
-                    "Lingwala",
-                    "Makala",
-                    "Maluku I",
-                    "Maluku II",
-                    "Masina I",
-                    "Masina II",
-                    "Matete",
-                    "Mont-Ngafula I",
-                    "Mont-Ngafula II",
-                    "N'djili",
-                    "Ngaba",
-                    "Ngaliema",
-                    "Ngiri-Ngiri",
-                    "N'sele",
-                    "Police",
-                    "Selembao"
-                ]
+                "name": "Buta",
+                "type": "VILLE"
+            },
+            {
+                "name": "Aketi",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Ango",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Bambesa",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Bondo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Buta",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Poko",
+                "type": "TERRITOIRE"
             }
         ]
     },
     {
-        "province": "Nord-Kivu",
+        "province": "Équateur",
         "children": [
             {
-                "name": "Goma",
-                "type": "VILLE",
-                "zonesSante": [
-                    "Goma",
-                    "Karisimbi"
-                ]
+                "name": "Mbandaka",
+                "type": "VILLE"
             },
             {
-                "name": "Beni",
-                "type": "VILLE",
-                "zonesSante": [
-                    "Beni"
-                ]
+                "name": "Basankusu",
+                "type": "TERRITOIRE"
             },
             {
-                "name": "Butembo",
-                "type": "VILLE",
-                "zonesSante": [
-                    "Butembo",
-                    "Katwa"
-                ]
+                "name": "Bikoro",
+                "type": "TERRITOIRE"
             },
             {
-                "name": "Beni",
-                "type": "TERRITOIRE",
-                "zonesSante": [
-                    "Mabalako",
-                    "Oicha",
-                    "Mutwanga",
-                    "Kamango",
-                    "Kyondo",
-                    "Vuhovi"
-                ]
+                "name": "Bolomba",
+                "type": "TERRITOIRE"
             },
             {
-                "name": "Lubero",
-                "type": "TERRITOIRE",
-                "zonesSante": [
-                    "Lubero",
-                    "Masereka",
-                    "Musienene",
-                    "Kayna",
-                    "Alimbongo",
-                    "Manguredjipa",
-                    "Bien"
-                ]
+                "name": "Bomongo",
+                "type": "TERRITOIRE"
             },
             {
-                "name": "Masisi",
-                "type": "TERRITOIRE",
-                "zonesSante": [
-                    "Masisi",
-                    "Kirotshe",
-                    "Mweso",
-                    "Katoyi",
-                    "Kibua"
-                ]
+                "name": "Ingende",
+                "type": "TERRITOIRE"
             },
             {
-                "name": "Rutshuru",
-                "type": "TERRITOIRE",
-                "zonesSante": [
-                    "Rutshuru",
-                    "Rwanguba",
-                    "Binza",
-                    "Bambo",
-                    "Kibirizi"
-                ]
+                "name": "Lukolela",
+                "type": "TERRITOIRE"
             },
             {
-                "name": "Walikale",
-                "type": "TERRITOIRE",
-                "zonesSante": [
-                    "Walikale",
-                    "Kibua",
-                    "Itebero",
-                    "Pingan"
-                ]
-            },
-            {
-                "name": "Nyiragongo",
-                "type": "TERRITOIRE",
-                "zonesSante": [
-                    "Nyiragongo"
-                ]
+                "name": "Mankanza",
+                "type": "TERRITOIRE"
             }
         ]
     },
@@ -140,71 +74,782 @@
         "children": [
             {
                 "name": "Lubumbashi",
-                "type": "VILLE",
-                "zonesSante": [
-                    "Lubumbashi",
-                    "Kamalondo",
-                    "Kenya",
-                    "Katuba",
-                    "Ruashi",
-                    "Kampemba",
-                    "Kisanga"
-                ]
+                "type": "VILLE"
             },
             {
                 "name": "Likasi",
-                "type": "VILLE",
-                "zonesSante": [
-                    "Likasi",
-                    "Panda",
-                    "Kikula"
-                ]
-            },
-            {
-                "name": "Kipushi",
-                "type": "TERRITOIRE",
-                "zonesSante": [
-                    "Kipushi",
-                    "Kafubu"
-                ]
+                "type": "VILLE"
             },
             {
                 "name": "Kambove",
-                "type": "TERRITOIRE",
-                "zonesSante": [
-                    "Kambove"
-                ]
-            },
-            {
-                "name": "Mitwaba",
-                "type": "TERRITOIRE",
-                "zonesSante": [
-                    "Mitwaba",
-                    "Mufunga-Sampwe"
-                ]
-            },
-            {
-                "name": "Pweto",
-                "type": "TERRITOIRE",
-                "zonesSante": [
-                    "Pweto",
-                    "Kilwa"
-                ]
-            },
-            {
-                "name": "Sakania",
-                "type": "TERRITOIRE",
-                "zonesSante": [
-                    "Sakania"
-                ]
+                "type": "TERRITOIRE"
             },
             {
                 "name": "Kasenga",
-                "type": "TERRITOIRE",
-                "zonesSante": [
-                    "Kasenga",
-                    "Kashobwe"
-                ]
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kipushi",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Mitwaba",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Pweto",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Sakania",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Haut-Lomami",
+        "children": [
+            {
+                "name": "Kamina",
+                "type": "VILLE"
+            },
+            {
+                "name": "Bukama",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kabongo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kamina",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kaniama",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Malemba-Nkulu",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Haut-Uele",
+        "children": [
+            {
+                "name": "Isiro",
+                "type": "VILLE"
+            },
+            {
+                "name": "Dungu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Faradje",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Niangara",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Rungu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Wamba",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Watsa",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Ituri",
+        "children": [
+            {
+                "name": "Bunia",
+                "type": "VILLE"
+            },
+            {
+                "name": "Aru",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Djugu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Irumu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Mahagi",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Mambasa",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Kasaï",
+        "children": [
+            {
+                "name": "Tshikapa",
+                "type": "VILLE"
+            },
+            {
+                "name": "Dekese",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Ilebo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kamonia",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Luebo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Mweka",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Kasaï-Central",
+        "children": [
+            {
+                "name": "Kananga",
+                "type": "VILLE"
+            },
+            {
+                "name": "Demba",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Dibaya",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Dimbelenge",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kazumba",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Luiza",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Kasaï-Oriental",
+        "children": [
+            {
+                "name": "Mbuji-Mayi",
+                "type": "VILLE"
+            },
+            {
+                "name": "Kabeya-Kamwanga",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Katanda",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Lupatapata",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Miabi",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Tshilenge",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Kinshasa",
+        "children": [
+            {
+                "name": "Kinshasa",
+                "type": "VILLE"
+            }
+        ]
+    },
+    {
+        "province": "Kongo-Central",
+        "children": [
+            {
+                "name": "Matadi",
+                "type": "VILLE"
+            },
+            {
+                "name": "Boma",
+                "type": "VILLE"
+            },
+            {
+                "name": "Kasangulu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kimvula",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Lukula",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Luozi",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Madimba",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Mbanza-Ngungu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Moanda",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Sekei-Banza",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Songololo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Tshela",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Kwango",
+        "children": [
+            {
+                "name": "Kenge",
+                "type": "VILLE"
+            },
+            {
+                "name": "Feshi",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kahemba",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kasongo-Lunda",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kenge",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Popokabaka",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Kwilu",
+        "children": [
+            {
+                "name": "Bandundu",
+                "type": "VILLE"
+            },
+            {
+                "name": "Kikwit",
+                "type": "VILLE"
+            },
+            {
+                "name": "Bagata",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Bulungu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Gungu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Idiofa",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Masi-Manimba",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Lomami",
+        "children": [
+            {
+                "name": "Kabinda",
+                "type": "VILLE"
+            },
+            {
+                "name": "Mwene-Ditu",
+                "type": "VILLE"
+            },
+            {
+                "name": "Gandajika",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kabinda",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kamiji",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Lubao",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Luilu",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Lualaba",
+        "children": [
+            {
+                "name": "Kolwezi",
+                "type": "VILLE"
+            },
+            {
+                "name": "Dilolo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kapanga",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Lubudi",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Mutshatsha",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Sandoa",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Mai-Ndombe",
+        "children": [
+            {
+                "name": "Inongo",
+                "type": "VILLE"
+            },
+            {
+                "name": "Bolobo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Inongo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kiri",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kutu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kwamouth",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Mushie",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Oshwe",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Yumbi",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Maniema",
+        "children": [
+            {
+                "name": "Kindu",
+                "type": "VILLE"
+            },
+            {
+                "name": "Kabambare",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kailo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kasongo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kibombo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Lubutu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Pangi",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Punia",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Mongala",
+        "children": [
+            {
+                "name": "Lisala",
+                "type": "VILLE"
+            },
+            {
+                "name": "Bumba",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Bongandanga",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Lisala",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Nord-Kivu",
+        "children": [
+            {
+                "name": "Goma",
+                "type": "VILLE"
+            },
+            {
+                "name": "Beni",
+                "type": "VILLE"
+            },
+            {
+                "name": "Butembo",
+                "type": "VILLE"
+            },
+            {
+                "name": "Beni",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Lubero",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Masisi",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Nyiragongo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Rutshuru",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Walikale",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Nord-Ubangi",
+        "children": [
+            {
+                "name": "Gbadolite",
+                "type": "VILLE"
+            },
+            {
+                "name": "Bosobolo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Businga",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Mobayi-Mbongo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Yakoma",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Sankuru",
+        "children": [
+            {
+                "name": "Lusambo",
+                "type": "VILLE"
+            },
+            {
+                "name": "Katako-Kombe",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kole",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Lodja",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Lomela",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Lubefu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Lusambo",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Sud-Kivu",
+        "children": [
+            {
+                "name": "Bukavu",
+                "type": "VILLE"
+            },
+            {
+                "name": "Baraka",
+                "type": "VILLE"
+            },
+            {
+                "name": "Kamituga",
+                "type": "VILLE"
+            },
+            {
+                "name": "Uvira",
+                "type": "VILLE"
+            },
+            {
+                "name": "Fizi",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Idjwi",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kabare",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kalehe",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Mwenga",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Shabunda",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Uvira",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Walungu",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Sud-Ubangi",
+        "children": [
+            {
+                "name": "Gemena",
+                "type": "VILLE"
+            },
+            {
+                "name": "Zongo",
+                "type": "VILLE"
+            },
+            {
+                "name": "Budjala",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Gemena",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kungu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Libenge",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Tanganyika",
+        "children": [
+            {
+                "name": "Kalemie",
+                "type": "VILLE"
+            },
+            {
+                "name": "Kabalo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kalemie",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Kongolo",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Manono",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Moba",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Nyunzu",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Tshopo",
+        "children": [
+            {
+                "name": "Kisangani",
+                "type": "VILLE"
+            },
+            {
+                "name": "Bafwasende",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Banalia",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Basoko",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Isangi",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Opala",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Ubundu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Yahuma",
+                "type": "TERRITOIRE"
+            }
+        ]
+    },
+    {
+        "province": "Tshuapa",
+        "children": [
+            {
+                "name": "Boende",
+                "type": "VILLE"
+            },
+            {
+                "name": "Befale",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Boende",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Bokungu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Djolu",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Ikela",
+                "type": "TERRITOIRE"
+            },
+            {
+                "name": "Monkoto",
+                "type": "TERRITOIRE"
             }
         ]
     }

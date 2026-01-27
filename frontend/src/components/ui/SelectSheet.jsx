@@ -3,7 +3,7 @@ import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Search, ChevronRight } from 'lucide-react';
 
-export const SelectSheet = ({ isOpen, onClose, title, options, onSelect }) => {
+export const SelectSheet = ({ isOpen, onClose, title, options, onSelect, groups }) => {
     const [search, setSearch] = useState('');
 
     const filtered = useMemo(() => {
@@ -52,16 +52,46 @@ export const SelectSheet = ({ isOpen, onClose, title, options, onSelect }) => {
 
                         {/* List */}
                         <div className="flex-1 overflow-y-auto px-6 pb-8 space-y-2">
-                            {filtered.map((opt, i) => (
-                                <button
-                                    key={opt.id || i}
-                                    onClick={() => { onSelect(opt); onClose(); setSearch(''); }}
-                                    className="w-full p-4 bg-white/5 rounded-xl border border-transparent hover:border-white/20 flex items-center justify-between group transition-all"
-                                >
-                                    <span className="font-bold text-white">{opt.label}</span>
-                                    <ChevronRight size={20} className="text-white/30 group-hover:text-neon-yellow" />
-                                </button>
-                            ))}
+                            {groups ? (
+                                // GROUPED RENDER
+                                groups.map(group => {
+                                    const groupOptions = filtered.filter(o => o.type === group.key);
+                                    if (groupOptions.length === 0) return null;
+
+                                    return (
+                                        <div key={group.key} className="mb-6">
+                                            <h4 className="text-xs font-bold text-white/40 uppercase mb-3 ml-1 tracking-widest sticky top-0 bg-dark-900 py-2 z-10">
+                                                {group.label}
+                                            </h4>
+                                            <div className="space-y-2">
+                                                {groupOptions.map((opt, i) => (
+                                                    <button
+                                                        key={opt.id || i}
+                                                        onClick={() => { onSelect(opt); onClose(); setSearch(''); }}
+                                                        className="w-full p-4 bg-white/5 rounded-xl border border-transparent hover:border-white/20 flex items-center justify-between group transition-all"
+                                                    >
+                                                        <span className="font-bold text-white">{opt.label}</span>
+                                                        <ChevronRight size={20} className="text-white/30 group-hover:text-neon-yellow" />
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                // STANDARD RENDER
+                                filtered.map((opt, i) => (
+                                    <button
+                                        key={opt.id || i}
+                                        onClick={() => { onSelect(opt); onClose(); setSearch(''); }}
+                                        className="w-full p-4 bg-white/5 rounded-xl border border-transparent hover:border-white/20 flex items-center justify-between group transition-all"
+                                    >
+                                        <span className="font-bold text-white">{opt.label}</span>
+                                        <ChevronRight size={20} className="text-white/30 group-hover:text-neon-yellow" />
+                                    </button>
+                                ))
+                            )}
+
                             {filtered.length === 0 && (
                                 <p className="text-center text-white/40 mt-10">Aucun résultat trouvé.</p>
                             )}
