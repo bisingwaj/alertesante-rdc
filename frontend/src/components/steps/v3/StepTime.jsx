@@ -8,8 +8,8 @@ const TIMES = [
     { id: 'MORE', label: "Plus longtemps" }
 ];
 const IMPACTS = [
-    { id: 'ONE', label: "Juste moi" },
-    { id: 'MANY', label: "Plusieurs personnes" }
+    { id: 'ONE_PERSON', label: "Juste moi" },
+    { id: 'SEVERAL', label: "Plusieurs personnes" }
 ];
 
 export const StepTime = ({ onNext, onBack }) => {

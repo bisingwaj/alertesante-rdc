@@ -173,7 +173,13 @@ export const StepSpecifics = ({ branch, onNext, onBack }) => {
                     exit={{ opacity: 0, x: -20 }}
                     className="flex-1 flex flex-col"
                 >
-                    <h2 className="text-2xl font-bold mb-8 leading-tight">{currentQuestion.label}</h2>
+                    <h2 className="text-2xl font-bold mb-4 leading-tight">{currentQuestion.label}</h2>
+                    {!canContinue() && (
+                        <p className="text-red-400 text-sm mb-4 flex items-center gap-2">
+                            <span className="bg-red-500/20 px-2 py-1 rounded font-bold text-xs">OBLIGATOIRE</span>
+                            Vous devez répondre pour continuer
+                        </p>
+                    )}
 
                     <div className="flex-1 overflow-y-auto pb-4 custom-scrollbar">
                         {currentQuestion.type === 'text' && (

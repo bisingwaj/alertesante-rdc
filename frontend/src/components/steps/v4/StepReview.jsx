@@ -11,14 +11,29 @@ export const StepRecap = ({ data, onNext, onBack }) => {
     const handleSend = async () => {
         setSending(true);
 
+        // Extract category from specifics based on branch
+        const getCategoryFromSpecifics = () => {
+            if (!data.specifics) return 'Non spécifié';
+            // Map first question answer to category based on branch
+            const categoryKeys = {
+                'QUALITY': 'q_type',
+                'MEDS': 'm_type',
+                'ALERT': 'a_signal',
+                'HYGIENE': 'h_type'
+            };
+            const key = categoryKeys[data.branch] || 'q_type';
+            return data.specifics[key] || 'Non spécifié';
+        };
+
         const payload = {
             shortId: `WEB-${Math.floor(1000 + Math.random() * 9000)}`,
             type: data.branch || 'AUTRE',
+            category: getCategoryFromSpecifics(), // Required field
             description: data.description || 'Pas de description',
 
-            // Location
-            province: data.location?.administrative?.province || data.province,
-            cityOrTerritory: data.location?.administrative?.child || data.city_or_territory,
+            // Location - Use defaults for required fields
+            province: data.location?.administrative?.province || data.province || 'Non spécifié',
+            cityOrTerritory: data.location?.administrative?.child || data.city_or_territory || 'Non spécifié',
             healthZone: data.location?.administrative?.zs || data.health_zone,
             structureName: data.location?.name || data.structure || 'Non spécifié',
 
@@ -38,8 +53,12 @@ export const StepRecap = ({ data, onNext, onBack }) => {
                 longitude: data.location?.gps?.longitude
             },
 
-            isAnonymous: true,
-            status: 'NOUVEAU', // Enum matches
+            // Contact
+            isAnonymous: data.isAnonymous ?? true,
+            contactPhone: data.contactPhone || null,
+            contactPref: data.contactPref || null,
+
+            status: 'NOUVEAU',
             channel: 'WEB_MOBILE'
         };
 

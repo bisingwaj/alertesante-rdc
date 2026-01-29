@@ -51,9 +51,10 @@ export const StepTriage = ({ onNext, onBack }) => {
 
             {/* DANGER QUESTION */}
             <div className="mb-8">
-                <p className="text-white/60 mb-3 font-bold flex items-center gap-2">
-                    <AlertTriangle size={18} className="text-neon-red" />
+                <p className={`mb-3 font-bold flex items-center gap-2 ${danger === null ? 'text-red-400' : 'text-white/60'}`}>
+                    <AlertTriangle size={18} className={danger === null ? 'text-red-500' : 'text-neon-red'} />
                     Y a-t-il un danger immédiat ?
+                    {danger === null && <span className="text-xs bg-red-500/20 px-2 py-0.5 rounded text-red-400">OBLIGATOIRE</span>}
                 </p>
                 <div className="grid grid-cols-2 gap-3">
                     <button onClick={() => handleDanger(true)} className="py-4 bg-dark-800 border border-white/10 rounded-xl hover:border-red-500 font-bold text-red-400">OUI</button>
@@ -76,28 +77,30 @@ const QuestionsPart2 = ({ onNext }) => {
     return (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
             <div>
-                <p className="text-white/60 mb-3 font-bold flex items-center gap-1">
-                    <Users size={18} className="text-blue-400 mr-1" />
+                <p className={`mb-3 font-bold flex items-center gap-1 ${!impact ? 'text-red-400' : 'text-white/60'}`}>
+                    <Users size={18} className={!impact ? 'text-red-500' : 'text-blue-400'} />
                     Personnes affectées
+                    {!impact && <span className="text-xs bg-red-500/20 px-2 py-0.5 rounded text-red-400">OBLIGATOIRE</span>}
                     <InfoButton text="Ne comptez que les personnes qui subissent directement le problème (ex: patients non soignés, victimes d'extorsion)." />
                 </p>
                 <div className="grid grid-cols-2 gap-3">
-                    <button onClick={() => setImpact('ONE')} className={`py-3 rounded-xl text-sm font-bold border ${impact === 'ONE' ? 'bg-neon-green/20 border-neon-green text-neon-green' : 'bg-dark-800 border-white/10'}`}>Juste une personne</button>
-                    <button onClick={() => setImpact('MANY')} className={`py-3 rounded-xl text-sm font-bold border ${impact === 'MANY' ? 'bg-neon-green/20 border-neon-green text-neon-green' : 'bg-dark-800 border-white/10'}`}>Plusieurs personnes</button>
+                    <button onClick={() => setImpact('ONE_PERSON')} className={`py-3 rounded-xl text-sm font-bold border ${impact === 'ONE_PERSON' ? 'bg-neon-green/20 border-neon-green text-neon-green' : 'bg-dark-800 border-white/10'}`}>Juste une personne</button>
+                    <button onClick={() => setImpact('SEVERAL')} className={`py-3 rounded-xl text-sm font-bold border ${impact === 'SEVERAL' ? 'bg-neon-green/20 border-neon-green text-neon-green' : 'bg-dark-800 border-white/10'}`}>Plusieurs personnes</button>
                 </div>
             </div>
 
             <div>
-                <p className="text-white/60 mb-3 font-bold flex items-center gap-1">
-                    <Calendar size={18} className="text-neon-yellow mr-1" />
+                <p className={`mb-3 font-bold flex items-center gap-1 ${!time ? 'text-red-400' : 'text-white/60'}`}>
+                    <Calendar size={18} className={!time ? 'text-red-500' : 'text-neon-yellow'} />
                     Date de l'incident
+                    {!time && <span className="text-xs bg-red-500/20 px-2 py-0.5 rounded text-red-400">OBLIGATOIRE</span>}
                     <InfoButton text="Si ça arrive tout le temps, choisissez 'Aujourd'hui' ou précisez dans la description." />
                 </p>
                 <div className="grid grid-cols-3 gap-2">
                     {[
-                        { id: 'Aujourdhui', label: "Aujourd'hui" },
-                        { id: 'Semaine', label: "Cette semaine" },
-                        { id: 'Avant', label: "Plus ancien" }
+                        { id: 'TODAY', label: "Aujourd'hui" },
+                        { id: 'WEEK', label: "Cette semaine" },
+                        { id: 'MORE', label: "Plus ancien" }
                     ].map(t => (
                         <button key={t.id} onClick={() => setTime(t.id)} className={`py-3 rounded-xl text-xs font-bold border ${time === t.id ? 'bg-white text-black' : 'bg-dark-800 border-white/10 text-white/60'}`}>
                             {t.label}

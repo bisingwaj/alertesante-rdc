@@ -44,13 +44,22 @@ export const StepMedia = ({ onNext, onBack }) => {
             <div className="flex flex-col h-full pt-8 px-6">
                 <button onClick={onBack} className="mb-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white"><ArrowLeft size={24} /></button>
                 <h2 className="text-2xl font-bold mb-2">Preuves & Contexte</h2>
-                <p className="text-white/60 mb-6">Expliquez ce qui s'est passé.</p>
+                <p className="text-white/60 mb-2">Expliquez ce qui s'est passé.</p>
+                {!desc && !photoUrl && !audioUrl && (
+                    <p className="text-red-400 text-xs mb-4 flex items-center gap-1">
+                        <span className="bg-red-500/20 px-2 py-0.5 rounded font-bold">OBLIGATOIRE</span>
+                        Ajoutez une description, photo ou audio
+                    </p>
+                )}
 
                 <textarea
                     value={desc}
                     onChange={e => setDesc(e.target.value)}
                     placeholder="Décrivez la situation en quelques mots..."
-                    className="w-full h-32 bg-dark-800 rounded-xl p-4 text-white border border-white/10 focus:border-neon-yellow outline-none mb-6 resize-none"
+                    className={`w-full h-32 bg-dark-800 rounded-xl p-4 text-white outline-none mb-6 resize-none border-2 transition-colors ${!desc && !photoUrl && !audioUrl
+                            ? 'border-red-500/50 focus:border-red-500'
+                            : 'border-white/10 focus:border-neon-yellow'
+                        }`}
                 />
 
                 <div className="space-y-3 mb-6">

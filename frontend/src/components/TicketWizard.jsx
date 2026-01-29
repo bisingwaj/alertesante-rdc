@@ -10,6 +10,7 @@ import { StepTriage } from './steps/v4/StepTriage';
 import { StepLocation } from './steps/v4/StepLocation';
 import { StepMedia } from './steps/v4/StepMedia';
 import { StepSpecifics } from './steps/v4/StepSpecifics';
+import { StepContact } from './steps/v4/StepContact';
 
 import { StepRecap, StepSuccess } from './steps/v4/StepReview'; // UPDATED V4 IMPORT
 
@@ -52,8 +53,13 @@ const TicketWizard = () => {
 
         'SPECIFICS': <StepSpecifics
             branch={data.branch}
-            onNext={(d) => goNext(d, 'RECAP')}
+            onNext={(d) => goNext(d, 'CONTACT')}
             onBack={() => goBack('MEDIA')}
+        />,
+
+        'CONTACT': <StepContact
+            onNext={(d) => goNext(d, 'RECAP')}
+            onBack={() => goBack('SPECIFICS')}
         />,
 
         // FIN
@@ -66,7 +72,7 @@ const TicketWizard = () => {
         'SUCCESS': <StepSuccess ticketId={lastTicketId} onHome={() => { setData({}); setCurrentScreen('HOME'); }} />
     };
 
-    const FLOW_ORDER = ['TYPE', 'TRIAGE', 'LOCATION', 'MEDIA', 'SPECIFICS', 'RECAP'];
+    const FLOW_ORDER = ['TYPE', 'TRIAGE', 'LOCATION', 'MEDIA', 'SPECIFICS', 'CONTACT', 'RECAP'];
     const stepIndex = FLOW_ORDER.indexOf(currentScreen);
 
     return (

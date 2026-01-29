@@ -27,10 +27,10 @@ export class TicketsService {
         contactPref?: ContactPreference;
     }) {
         // 1. Calcul Gravité (Logique métier V3)
-        let gravity = Gravity.NORMAL;
+        let gravity: Gravity = Gravity.NORMAL;
 
         // Si Impact = MANY -> GRAVE
-        if (data.impactLevel === ImpactLevel.MANY) {
+        if (data.impactLevel === ImpactLevel.SEVERAL) {
             gravity = Gravity.GRAVE;
         }
 

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ArrowLeft, MapPin, Navigation, Search } from 'lucide-react';
+import { ArrowLeft, MapPin, Navigation, Search, X } from 'lucide-react';
 import { GeoSelector } from '../../ui/GeoSelector'; // Reuse logic
 
 export const StepLocation = ({ onNext, onBack }) => {
@@ -23,6 +23,18 @@ export const StepLocation = ({ onNext, onBack }) => {
             },
             { enableHighAccuracy: true }
         );
+    };
+
+    const handleRemoveGPS = () => {
+        setGpsData(null);
+    };
+
+    const handleGPSClick = () => {
+        if (gpsData) {
+            handleRemoveGPS();
+        } else {
+            handleLocate();
+        }
     };
 
     const handleNext = () => {
@@ -55,15 +67,30 @@ export const StepLocation = ({ onNext, onBack }) => {
                     />
                 </div>
 
-                <div onClick={handleLocate} className="flex items-center gap-3 py-3 px-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10">
-                    {locating ? <div className="animate-spin w-5 h-5 border-2 border-white rounded-full border-t-transparent" /> :
-                        gpsData ? <div className="w-5 h-5 bg-neon-green rounded-full flex items-center justify-center"><div className="w-2 h-2 bg-black rounded-full" /></div> :
-                            <Navigation size={20} className="text-neon-yellow" />}
+                <button
+                    onClick={handleGPSClick}
+                    className={`flex items-center justify-between w-full py-3 px-4 rounded-lg cursor-pointer transition-all ${gpsData
+                            ? 'bg-red-500/10 border-2 border-red-500/30 hover:bg-red-500/20'
+                            : 'bg-white/5 border-2 border-white/10 hover:bg-white/10 hover:border-neon-yellow/50'
+                        }`}
+                >
+                    <div className="flex items-center gap-3">
+                        {locating ? <div className="animate-spin w-5 h-5 border-2 border-white rounded-full border-t-transparent" /> :
+                            gpsData ? <div className="w-5 h-5 bg-neon-green rounded-full flex items-center justify-center"><div className="w-2 h-2 bg-black rounded-full" /></div> :
+                                <Navigation size={20} className="text-neon-yellow" />}
 
-                    <span className={gpsData ? "text-neon-green font-bold" : "text-white/80"}>
-                        {gpsData ? "Position GPS ajoutée" : "Ajouter ma position GPS"}
-                    </span>
-                </div>
+                        <span className={gpsData ? "text-neon-green font-bold" : "text-white/80"}>
+                            {gpsData ? "Position GPS ajoutée" : "Ajouter ma position GPS"}
+                        </span>
+                    </div>
+
+                    {gpsData && (
+                        <div className="flex items-center gap-2 text-red-400 text-sm font-bold">
+                            <X size={16} />
+                            Retirer
+                        </div>
+                    )}
+                </button>
             </div>
 
             <p className="text-xs text-white/40 font-bold uppercase mb-2">Zone Administrative (Optionnel)</p>
