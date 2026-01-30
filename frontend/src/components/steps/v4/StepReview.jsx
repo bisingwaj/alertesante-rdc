@@ -62,16 +62,16 @@ export const StepRecap = ({ data, onNext, onBack }) => {
             channel: 'WEB_MOBILE'
         };
 
-        const { error } = await supabase.from('tickets').insert([payload]);
+        const { data: insertedTicket, error } = await supabase.from('tickets').insert([payload]).select('shortId').single();
 
         if (error) {
             console.error('Supabase Error Full:', JSON.stringify(error, null, 2));
             alert("Erreur Envoi: " + (error.message || error.details || JSON.stringify(error)));
             setSending(false);
         } else {
-            // Success Animation Trigger
+            // Success - pass real ticketId to success screen
             setSending(false);
-            onNext(payload.short_id); // Pass ID to success screen
+            onNext(insertedTicket?.shortId || payload.shortId); // Fallback to payload if response fails
         }
     };
 
