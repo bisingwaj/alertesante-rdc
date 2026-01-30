@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 
 export const DashboardLayout = () => {
     return (
-        <div className="h-screen w-screen bg-slate-950 flex flex-col overflow-hidden">
+        <div className="h-screen w-screen bg-[#F8F9FA] flex flex-col overflow-hidden">
             <DashboardHeader />
             <div className="flex-1 flex overflow-hidden">
                 <Sidebar />
