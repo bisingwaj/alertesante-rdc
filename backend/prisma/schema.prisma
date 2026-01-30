@@ -59,7 +59,7 @@ enum ContactPreference {
 // --- MODELS ---
 
 model User {
-  id              String    @id @default(uuid())
+  id              String    @id @default(dbgenerated("gen_random_uuid()"))
   phoneNumber     String?   @unique
   role            Role      @default(CITOYEN)
   createdAt       DateTime  @default(now())
@@ -67,7 +67,7 @@ model User {
 }
 
 model Ticket {
-  id              String       @id @default(uuid()) // UUID interne
+  id              String       @id @default(dbgenerated("gen_random_uuid()")) // UUID interne
   shortId         String       @unique              // ID Public (ex: MS-2026-X)
   channel         Channel      @default(WEB_MOBILE)
   status          TicketStatus @default(NOUVEAU)
