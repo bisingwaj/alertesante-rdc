@@ -1,42 +1,88 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Activity, ShieldCheck, Lock } from 'lucide-react';
+import { Activity, ShieldCheck, Lock, AlertCircle, Pill, Stethoscope, Droplets } from 'lucide-react';
 
 export const StepHome = ({ onStart, onUrgent }) => (
-    <div className="flex flex-col items-center justify-center h-full px-6 text-center space-y-8">
+    <div className="flex flex-col h-full px-6 py-8 overflow-y-auto">
+        {/* HEADER */}
         <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="space-y-4"
+            className="text-center space-y-3 mb-6"
         >
-            <div className="w-24 h-24 mx-auto bg-neon-yellow/10 rounded-full flex items-center justify-center border border-neon-yellow/30">
-                <Activity size={48} className="text-neon-yellow" />
+            <div className="w-20 h-20 mx-auto bg-neon-yellow/10 rounded-full flex items-center justify-center border border-neon-yellow/30">
+                <Activity size={40} className="text-neon-yellow" />
             </div>
-            <h1 className="text-4xl font-black text-white">Alerte Santé</h1>
-            <p className="text-white/60 text-lg font-medium">République Démocratique du Congo</p>
+            <h1 className="text-3xl font-black text-white">Alerte Santé RDC</h1>
+            <p className="text-white/60 text-sm font-medium">Plateforme Officielle de Signalement</p>
         </motion.div>
 
-        <div className="bg-dark-800/50 p-6 rounded-2xl border border-white/10 text-left space-y-4">
-            <p className="flex items-center gap-4 text-white/90">
-                <ShieldCheck className="text-neon-green shrink-0" size={24} />
-                <span className="font-bold">Anonyme & Gratuit</span>
-            </p>
-            <p className="flex items-center gap-4 text-white/90">
-                <Lock className="text-neon-green shrink-0" size={24} />
-                <span className="font-bold">100% Sécurisé</span>
-            </p>
-            <p className="text-sm text-white/50 pt-2 border-t border-white/5 mt-2">
-                La plateforme officielle pour signaler abus, corruption et ruptures de stock.
-            </p>
+        {/* QUE SIGNALER ? */}
+        <div className="bg-dark-800/50 p-5 rounded-2xl border border-white/10 mb-4">
+            <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                <AlertCircle size={20} className="text-neon-yellow" />
+                Que pouvez-vous signaler ?
+            </h3>
+            <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                    <Stethoscope size={18} className="text-neon-green shrink-0 mt-0.5" />
+                    <div>
+                        <p className="text-white font-semibold text-sm">Qualité des soins</p>
+                        <p className="text-white/50 text-xs">Mauvais traitement, violence, paiements illégaux</p>
+                    </div>
+                </div>
+                <div className="flex items-start gap-3">
+                    <Pill size={18} className="text-neon-green shrink-0 mt-0.5" />
+                    <div>
+                        <p className="text-white font-semibold text-sm">Médicaments</p>
+                        <p className="text-white/50 text-xs">Rupture de stock, médicaments expirés ou contrefaits</p>
+                    </div>
+                </div>
+                <div className="flex items-start gap-3">
+                    <Droplets size={18} className="text-neon-green shrink-0 mt-0.5" />
+                    <div>
+                        <p className="text-white font-semibold text-sm">Hygiène & Infrastructure</p>
+                        <p className="text-white/50 text-xs">Eau non potable, installations vétustes</p>
+                    </div>
+                </div>
+                <div className="flex items-start gap-3">
+                    <Activity size={18} className="text-red-400 shrink-0 mt-0.5" />
+                    <div>
+                        <p className="text-white font-semibold text-sm">Alertes sanitaires</p>
+                        <p className="text-white/50 text-xs">Épidémies, maladies inhabituelles</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div className="w-full space-y-4">
+        {/* GARANTIES */}
+        <div className="bg-dark-800/50 p-5 rounded-2xl border border-white/10 mb-6">
+            <div className="space-y-3">
+                <div className="flex items-center gap-3 text-white/90">
+                    <ShieldCheck className="text-neon-green shrink-0" size={22} />
+                    <div>
+                        <p className="font-bold text-sm">Anonyme & Gratuit</p>
+                        <p className="text-white/50 text-xs">Vous pouvez signaler sans donner votre nom</p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-3 text-white/90">
+                    <Lock className="text-neon-green shrink-0" size={22} />
+                    <div>
+                        <p className="font-bold text-sm">100% Sécurisé</p>
+                        <p className="text-white/50 text-xs">Vos données sont protégées et confidentielles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {/* CTA */}
+        <div className="mt-auto space-y-4 pb-4">
             <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={onStart}
                 className="w-full h-16 bg-neon-yellow text-black font-black text-xl rounded-2xl shadow-[0_0_20px_rgba(255,230,0,0.3)]"
             >
-                COMMENCER
+                📣 FAIRE UN SIGNALEMENT
             </motion.button>
 
             <button
