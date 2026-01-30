@@ -61,16 +61,14 @@ body {
 /* Premium Dashboard Utilities */
 .card-premium {
   background: var(--bg-card);
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  padding: 32px;
+  border: 1px solid #F0F0F0;
   transition: all 0.2s ease;
 }
 
 .card-premium:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+  border-color: #E0E0E0;
 }
 
 .badge-purple {

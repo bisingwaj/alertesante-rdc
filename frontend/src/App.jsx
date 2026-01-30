@@ -36,33 +36,10 @@ const LoginRoute = () => {
 };
 
 // Placeholder pages
-const AnalyticsPage = () => (
-  <div className="p-8">
-    <h2 className="text-3xl font-black text-white mb-2">Analytics</h2>
-    <p className="text-white/60">Page en construction...</p>
-  </div>
-);
-
-const MapPage = () => (
-  <div className="p-8">
-    <h2 className="text-3xl font-black text-white mb-2">Carte Géographique</h2>
-    <p className="text-white/60">Page en construction...</p>
-  </div>
-);
-
-const TicketsPage = () => (
-  <div className="p-8">
-    <h2 className="text-3xl font-black text-white mb-2">Signalements</h2>
-    <p className="text-white/60">Page en construction...</p>
-  </div>
-);
-
-const SettingsPage = () => (
-  <div className="p-8">
-    <h2 className="text-3xl font-black text-white mb-2">Paramètres</h2>
-    <p className="text-white/60">Page en construction...</p>
-  </div>
-);
+const AnalyticsPage = React.lazy(() => import('./dashboard/pages/AnalyticsPage').then(m => ({ default: m.AnalyticsPage })));
+const MapPage = React.lazy(() => import('./dashboard/pages/MapPage').then(m => ({ default: m.MapPage })));
+const TicketsPage = React.lazy(() => import('./dashboard/pages/TicketsPage').then(m => ({ default: m.TicketsPage })));
+const SettingsPage = React.lazy(() => import('./dashboard/pages/SettingsPage').then(m => ({ default: m.SettingsPage })));
 
 function App() {
   return (

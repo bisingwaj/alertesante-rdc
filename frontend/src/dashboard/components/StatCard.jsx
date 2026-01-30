@@ -4,27 +4,23 @@ import { TrendingUp, TrendingDown } from 'lucide-react';
 export const StatCard = ({ title, value, trend, trendValue, icon: Icon, color = 'purple' }) => {
     const colorClasses = {
         purple: {
-            bg: 'bg-[#E5E3FF]',
+            bg: 'bg-[#F5F3FF]',
             icon: 'text-[#6C5CE7]',
-            border: 'border-[#6C5CE7]/30',
             number: 'text-[#6C5CE7]',
         },
         orange: {
-            bg: 'bg-[#FFE5CC]',
+            bg: 'bg-[#FFF4E6]',
             icon: 'text-[#FF8A00]',
-            border: 'border-[#FF8A00]/30',
             number: 'text-[#FF8A00]',
         },
         green: {
-            bg: 'bg-[#CCFFF0]',
+            bg: 'bg-[#E6FAF5]',
             icon: 'text-[#00D68F]',
-            border: 'border-[#00D68F]/30',
             number: 'text-[#00D68F]',
         },
         red: {
             bg: 'bg-[#FFE5EC]',
             icon: 'text-[#FF3D71]',
-            border: 'border-[#FF3D71]/30',
             number: 'text-[#FF3D71]',
         },
     };
@@ -33,30 +29,33 @@ export const StatCard = ({ title, value, trend, trendValue, icon: Icon, color = 
     const isPositive = trendValue >= 0;
 
     return (
-        <div className="card-premium">
-            <div className="flex items-start justify-between mb-4">
-                <div className={`w-12 h-12 ${colors.bg} rounded-xl flex items-center justify-center border ${colors.border}`}>
+        <div className="bg-white rounded-xl p-8 border border-[#F0F0F0]">
+            <div className="flex items-start justify-between mb-6">
+                <div className={`w-14 h-14 ${colors.bg} rounded-full flex items-center justify-center`}>
                     <Icon size={24} className={colors.icon} />
                 </div>
             </div>
             <div>
-                <p className="text-[#8F9BB3] text-[11px] font-semibold uppercase tracking-wider mb-2">
+                <p className="text-[#A0A0A0] text-xs font-medium uppercase tracking-wider mb-3">
                     {title}
                 </p>
-                <p className={`text-5xl font-black ${colors.number} mb-2 stat-number`}>
+                <p className={`text-5xl font-bold ${colors.number} mb-3`}>
                     {value}
                 </p>
                 {trend && (
-                    <div className="flex items-center gap-1 text-xs">
+                    <div className="flex items-center gap-2 text-sm">
                         {isPositive ? (
-                            <TrendingUp size={14} className="text-[#00D68F]" />
+                            <span className="text-[#00D68F] flex items-center gap-1">
+                                <TrendingUp size={16} />
+                                +{trendValue}%
+                            </span>
                         ) : (
-                            <TrendingDown size={14} className="text-[#FF3D71]" />
+                            <span className="text-[#FF3D71] flex items-center gap-1">
+                                <TrendingDown size={16} />
+                                {trendValue}%
+                            </span>
                         )}
-                        <span className={isPositive ? 'text-[#00D68F]' : 'text-[#FF3D71]'}>
-                            {isPositive ? '+' : ''}{trendValue}%
-                        </span>
-                        <span className="text-[#C5CEE0]">{trend}</span>
+                        <span className="text-[#C0C0C0]">{trend}</span>
                     </div>
                 )}
             </div>
